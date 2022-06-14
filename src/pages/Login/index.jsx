@@ -1,7 +1,14 @@
+import axios from 'axios';
 import * as S from './styles';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import Loading from '../../components/Loading';
 
 export default function Login() {
+  const [loading, setLoading] = useState(false);
+  const [textInput, setTextInput] = useState('Log In');
+  const [form, setForm] = useState({email: '', password: ''});
+
   const navigate = useNavigate();
 
   return (
@@ -13,10 +20,24 @@ export default function Login() {
         </S.Description>
       </S.ContainerHeader>
       <S.ContainerForm>
-        <S.Form>
-          <S.FormInputField required type="email" placeholder="e-mail" />
-          <S.FormInputField required type="password" placeholder="password" />
-          <S.FormInputField className="button" type="submit" value="Log In" />
+        <S.Form onSubmit={login}>
+          <S.FormInputField
+            required
+            type="email"
+            placeholder="e-mail"
+            disabled={loading}
+            onChange={(e) => setForm({ ...form, email: e.target.value })}
+          />
+
+          <S.FormInputField
+            required
+            type="password"
+            placeholder="password"
+            disabled={loading}
+            onChange={(e) => setForm({ ...form, password: e.target.value })}
+          />
+
+          <button type="submit" disabled={loading}>{textInput}</button>
 
           <S.Button onClick={() => navigate("/signup")}>
             First time? Create an account!
@@ -25,4 +46,22 @@ export default function Login() {
       </S.ContainerForm>
     </S.Container>
   );
+
+  async function login(event) {
+    event.preventDefault();
+    setLoading(true);
+    setTextInput(Loading());
+
+    try {
+      const response = await axios.post('/api/login', form);
+      localStorage.setItem('token', response.data.token); 
+      navigate("/timeline");
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoading(false);
+      setTextInput('Log In');
+    }
+  }
+
 }

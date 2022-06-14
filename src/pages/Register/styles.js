@@ -74,15 +74,23 @@ export const Form = styled.form`
   background-color: #333333;
   padding: 1rem;
 
-  .button {
+  button {
+    width: 85%;
+    height: 2.3em;
+    border: none;
+    border-radius: 0.5rem;
+    margin-bottom: 1rem;
+    padding: 0 1rem;
+    font-size: 1.5rem;
     background-color: #1877f2;
     color: #fff;
-    height: 2.3em;
-    width: 90%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 
-  .button:hover {
-    background-color: #a81e8a;
+  button:hover {
+    background-color: #5c19b5;
   }
 
   @media (min-width: 768px) {
@@ -113,4 +121,8 @@ export const Button = styled.span`
   color: #fff;
   text-decoration: underline;
   text-align: center;
+
+  &:hover {
+    cursor: pointer;
+  }
 `;
