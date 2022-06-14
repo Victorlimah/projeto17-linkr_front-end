@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { IoIosArrowDown, IoIosArrowUp } from 'react-icons/io';
 
-export default function Header({img}){
+export default function Header({picture}){
   const [show, setShow] = useState(false);
   const navigate = useNavigate();
 
@@ -12,7 +12,7 @@ export default function Header({img}){
       <S.Title>linkr</S.Title>
       <S.User onClick={() => setShow(!show)}>
         {show ? <IoIosArrowUp size={30} /> : <IoIosArrowDown size={30} />}
-        <S.UserPicture src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/Image_created_with_a_mobile_phone.png/1200px-Image_created_with_a_mobile_phone.png" />
+        <S.UserPicture src={picture} />
         {show ? <Profile /> : null}
       </S.User>
     </S.Header>
@@ -30,7 +30,4 @@ export default function Header({img}){
     localStorage.removeItem('token');
     navigate('/signin');
   }
-
-       
-
 }

@@ -9,7 +9,7 @@ export default function Router() {
   const [ data, setData ] = useState({API: "https://g3-linkr.herokuapp.com", token: ""});
 
   return (
-    <DataContext.Provider value={[data, setData]}>
+    <DataContext.Provider value={{data, setData}}>
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Initial/>} />

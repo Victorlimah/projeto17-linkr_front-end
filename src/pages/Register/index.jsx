@@ -7,11 +7,12 @@ import DataContext from "../../providers/DataContext";
 
 export default function Register() {
   const [loading, setLoading] = useState(false);
-  const [textInput, setTextInput] = useState("Log In");
+  const [textInput, setTextInput] = useState("Sign Up");
   const [form, setForm] = useState({ email: "", password: "", username: "", picture: "" });
 
-  const { API } = useContext(DataContext);
+  const { data } = useContext(DataContext);
   const navigate = useNavigate();
+  const API = data.API;
 
   return (
     <S.Container>
@@ -85,7 +86,7 @@ export default function Register() {
           alert("Invalid data");
     } finally {
       setLoading(false);
-      setTextInput('Log In');
+      setTextInput('Sign Up');
     }
   }
 }

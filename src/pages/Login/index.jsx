@@ -9,9 +9,10 @@ export default function Login() {
   const [loading, setLoading] = useState(false);
   const [textInput, setTextInput] = useState('Log In');
   const [form, setForm] = useState({email: '', password: ''});
-  const { API } = useContext(DataContext);
 
+  const { data } = useContext(DataContext);
   const navigate = useNavigate();
+  const API = data.API;
 
   return (
     <S.Container>
