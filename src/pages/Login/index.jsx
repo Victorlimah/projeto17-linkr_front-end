@@ -1,13 +1,15 @@
 import axios from 'axios';
 import * as S from './styles';
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Loading from '../../components/Loading';
+import DataContext from '../../providers/DataContext';
 
 export default function Login() {
   const [loading, setLoading] = useState(false);
   const [textInput, setTextInput] = useState('Log In');
   const [form, setForm] = useState({email: '', password: ''});
+  const { API } = useContext(DataContext);
 
   const navigate = useNavigate();
 
@@ -53,7 +55,7 @@ export default function Login() {
     setTextInput(Loading());
 
     try {
-      const response = await axios.post('/api/login', form);
+      const response = await axios.post(`${API}/signin`, form);
       localStorage.setItem('token', response.data.token); 
       navigate("/timeline");
     } catch (error) {

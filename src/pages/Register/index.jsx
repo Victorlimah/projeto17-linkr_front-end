@@ -1,14 +1,16 @@
 import axios from "axios";
 import * as S from "./styles";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import Loading from "../../components/Loading";
 import { useNavigate } from "react-router-dom";
+import DataContext from "../../providers/DataContext";
 
 export default function Register() {
- const [loading, setLoading] = useState(false);
- const [textInput, setTextInput] = useState("Log In");
- const [form, setForm] = useState({ email: "", password: "", username: "", picture: "" });
+  const [loading, setLoading] = useState(false);
+  const [textInput, setTextInput] = useState("Log In");
+  const [form, setForm] = useState({ email: "", password: "", username: "", picture: "" });
 
+  const { API } = useContext(DataContext);
   const navigate = useNavigate();
 
   return (
@@ -74,10 +76,13 @@ export default function Register() {
     setTextInput(Loading());
 
     try {
-      await axios.post('/api/login', form);
+      await axios.post(`${API}/signup`, form);
       navigate("/signin");
     } catch (error) {
-      console.log(error);
+        if(error.status === 409)
+          alert("E=mail already exists");
+        else
+          alert("Invalid data");
     } finally {
       setLoading(false);
       setTextInput('Log In');
