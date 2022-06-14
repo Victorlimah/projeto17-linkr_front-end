@@ -9,7 +9,7 @@ export default function Initial() {
    if(!localStorage.getItem('token')) navigate('/signin');
    else{
     //TODO: set user data
-    navigate('/dashboard');
+    navigate('/timeline');
    }
   }, []);
 
