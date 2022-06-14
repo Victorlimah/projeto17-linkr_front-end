@@ -44,22 +44,27 @@ export const UserPicture = styled.img`
   margin-right: 10px;
 `;
 
+export const Container = styled.div`
+  width: 100vw;
+  height: 100vh;
+  z-index: 2;
+`;
+
 export const Profile = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 100%;
   cursor: pointer;
   background: #151515;
   border-radius: 0 0 0 30px;
-  padding: 0 35px;
+  padding: 18px 30px;
   position: absolute;
-  top: 90%;
+  top: 60px;
   right: 0;
   z-index: 1;
 `;
 
-export const ProfileItem = styled.div`
+export const ProfileItem = styled.h3`
   font-family: "Lato";
   font-style: normal;
   font-weight: 700;

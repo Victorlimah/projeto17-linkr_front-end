@@ -13,5 +13,5 @@ export default function Initial() {
    }
   }, []);
 
-  return null;
+ return null;
 }
