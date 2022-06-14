@@ -25,7 +25,7 @@ export const ContainerHeader = styled.div`
 
   @media (min-width: 768px) {
     width: 60%;
-    height: 100vh
+    height: 100vh;
   }
 `;
 

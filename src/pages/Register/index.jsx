@@ -1,7 +1,7 @@
-import * as S from './styles';
-import { useNavigate } from 'react-router-dom';
+import * as S from "./styles";
+import { useNavigate } from "react-router-dom";
 
-export default function Login() {
+export default function Register() {
   const navigate = useNavigate();
 
   return (
@@ -16,10 +16,12 @@ export default function Login() {
         <S.Form>
           <S.FormInputField required type="email" placeholder="e-mail" />
           <S.FormInputField required type="password" placeholder="password" />
-          <S.FormInputField className="button" type="submit" value="Log In" />
+          <S.FormInputField required type="text" placeholder="username" />
+          <S.FormInputField required type="text" placeholder="picture url" />
+          <S.FormInputField className="button" type="submit" value="Sign Up" />
 
-          <S.Button onClick={() => navigate("/signup")}>
-            First time? Create an account!
+          <S.Button onClick={() => navigate("/signin")}>
+            Switch back to log in
           </S.Button>
         </S.Form>
       </S.ContainerForm>
