@@ -6,7 +6,7 @@ export default function Initial() {
   const navigate = useNavigate();
 
   useEffect(() => {
-   if(!localStorage.getItem('token')) navigate('/login');
+   if(!localStorage.getItem('token')) navigate('/signin');
    else{
     //TODO: set user data
     navigate('/dashboard');
