@@ -58,6 +58,7 @@ export default function Login() {
       navigate("/timeline");
     } catch (error) {
       console.log(error);
+      alert('Invalid e-mail or password');
     } finally {
       setLoading(false);
       setTextInput('Log In');
