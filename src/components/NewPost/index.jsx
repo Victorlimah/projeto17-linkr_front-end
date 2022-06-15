@@ -4,16 +4,18 @@ import DataContext from "../../providers/DataContext";
 import axios from "axios";
 
 export default function NewPost(props) {
-    const { publish, setPublish } = props;
-    const [form, setForm] = useState({url: "", descrption: ""});
     const { data } = useContext(DataContext);
     const API = data.API;
+
+    const [form, setForm] = useState({ id: data.user.id, url: "", description: ""});
+    const { publish, setPublish } = props;
 
     async function publicate(event) {
         event.preventDefault();
         setPublish(true);
         try {
             await axios.post(`${API}/timeline`, form);
+            console.log("Posted succesfully")
             setPublish(false);
         } catch (err) {
             alert("An error occured while trying to post your link")
@@ -23,7 +25,7 @@ export default function NewPost(props) {
     return !publish ? (
         <S.Form onSubmit={publicate}>
             <S.P>What are you going to share today?</S.P>
-            <img src="" alt="foto do perfil"></img>
+            <img src={data.user.picture} alt="foto do perfil"></img>
             <S.UrlInput
                 required
                 type="url"
@@ -41,7 +43,7 @@ export default function NewPost(props) {
     ) : (
         <S.Form>
             <S.P>What are you going to share today?</S.P>
-            <img src="" alt="foto do perfil"></img>
+            <img src={data.user.picture} alt="foto do perfil"></img>
             <S.UrlInput
                 required
                 type="url"

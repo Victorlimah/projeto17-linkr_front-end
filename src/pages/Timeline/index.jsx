@@ -28,7 +28,7 @@ export default function Timeline() {
     return (
         <S.Container>
             <S.PostsColumn>
-                <Header />
+                <Header picture={data.user.picture} />
                 <S.H2>timeline</S.H2>
                 <NewPost
                     publish={publish}

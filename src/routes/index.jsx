@@ -7,8 +7,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Timeline from "../pages/Timeline";
 
 export default function Router() {
-  const [ data, setData ] = useState({API: "http://localhost:9999", token: "", user: {}});
-  //https://g3-linkr.herokuapp.com
+  const [ data, setData ] = useState({API: "https://g3-linkr.herokuapp.com", token: "", user: {}});
 
   return (
     <DataContext.Provider value={{data, setData}}>
