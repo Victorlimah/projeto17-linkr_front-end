@@ -10,7 +10,7 @@ export default function Login() {
   const [textInput, setTextInput] = useState('Log In');
   const [form, setForm] = useState({email: '', password: ''});
 
-  const { data } = useContext(DataContext);
+  const { data, setData } = useContext(DataContext);
   const navigate = useNavigate();
   const API = data.API;
 
@@ -57,7 +57,11 @@ export default function Login() {
 
     try {
       const response = await axios.post(`${API}/signin`, form);
-      localStorage.setItem('token', response.data.token); 
+      localStorage.setItem('token', response.data.token);
+      const str = response.data.token.split(".")[1];
+      let user = window.atob(str);
+      let picture = JSON.parse(user).picture;
+      setData({...data, user:{picture}});
       navigate("/timeline");
     } catch (error) {
       console.log(error);

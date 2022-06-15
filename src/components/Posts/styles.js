@@ -85,11 +85,58 @@ export const linkCard = styled.div`
   margin-top: 13px;
   border: 1px solid #4D4D4D;
   border-radius: 11px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+
+  h3 {
+    font-family: 'Lato';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 19px;
+    color: #CECECE;
+  }
+
+  p {
+    font-family: 'Lato';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 11px;
+    line-height: 13px;
+    color: #9B9595;
+  }
+
+  h4 {
+    font-family: 'Lato';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 11px;
+    line-height: 13px;
+    color: #CECECE;
+  }
+
+  img {
+    position: absolute;
+    width: 95px;
+    height: 115px;
+    right: 0px;
+    top: 0px;
+    bottom: 0px;
+    background: url(image.png);
+    border-radius: 0px 12px 13px 0px;
+  }
+
 
   @media (min-width: 768px) {
     width: 503px;
     height: 155px;
     border: 1px solid #4D4D4D;
     border-radius: 11px;
+
+    img {
+      width: 153px;
+      height: 115px;
+    }
   }
 `
