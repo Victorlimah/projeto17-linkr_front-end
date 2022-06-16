@@ -5,9 +5,10 @@ import Register from "../pages/Register";
 import DataContext from "../providers/DataContext";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Timeline from "../pages/Timeline";
+import Hashtag from "../pages/Hashtag"
 
 export default function Router() {
-  const [ data, setData ] = useState({API: "https://g3-linkr.herokuapp.com", token: "", user: {}});
+  const [ data, setData ] = useState({API: "http://localhost:5050", token: "", user: {}});
 
   return (
     <DataContext.Provider value={{data, setData}}>
@@ -17,6 +18,7 @@ export default function Router() {
           <Route path="/signin" element={<Login />} />
           <Route path="/signup" element={<Register />} />
           <Route path="/timeline" element={<Timeline />} />
+          <Route path="/hashtag/:hashtag" element={<Hashtag />} />
         </Routes>
       </BrowserRouter>
     </DataContext.Provider>

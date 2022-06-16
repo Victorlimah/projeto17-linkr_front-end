@@ -26,7 +26,7 @@ export default function Posts(props) {
                     <h3>{linkTitle}</h3>
                     <p>{linkDescription}</p>
                     <h4>{link}</h4>
-                    <img>{linkPicture}</img>
+                    <img src={linkPicture} alt="" />
                 </S.linkCard>
             </S.PostBody>
         </S.Container>
