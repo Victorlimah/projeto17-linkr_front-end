@@ -187,3 +187,8 @@ export const linkCard = styled.div`
     }
   }
 `
+
+export const Hashtag = styled.span`
+  font-weight: bold;
+  color: #FFFFFF;
+`;

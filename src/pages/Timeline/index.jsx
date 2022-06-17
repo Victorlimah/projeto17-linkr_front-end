@@ -3,8 +3,10 @@ import Header from "../../components/Header";
 import NewPost from "../../components/NewPost";
 import Posts from "../../components/Posts";
 import { useState, useEffect, useContext } from "react";
+import { useNavigate } from "react-router-dom";
 import DataContext from "../../providers/DataContext";
 import axios from "axios";
+
 
 export default function Timeline() {
     const [posts, setPosts] = useState([]);
@@ -12,6 +14,7 @@ export default function Timeline() {
     const [load, setLoad] = useState(false)
     const [count, setCount] = useState(0)
     const { data } = useContext(DataContext);
+    const navigate = useNavigate()
     const API = data.API;
 
     useEffect( async () => {
@@ -65,16 +68,22 @@ export default function Timeline() {
                         setPublish={setPublish}
                     />
                     {console.log(posts)}
-                    {posts.map(post => {
+                    {posts.map((post, index) => {
                         return (
                             <Posts
+                                key={post.username + post.description + index}
                                 name={post.username}
                                 picture={post.picture}
                                 link={post.link}
                                 description={post.description}
                                 linkDescription={post.linkDescription}
                                 linkTitle={post.linkTitle}
-                                linkPicture={post.linkPicture} />
+                                linkPicture={post.linkPicture}
+                                redirect={(val) => {
+                                    val = val.replace("#", "")
+                                    navigate(`/hashtag/${val}`)
+                                }}
+                                />
                         )
                     })}
                 </S.PostsColumn>

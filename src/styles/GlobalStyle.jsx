@@ -134,4 +134,8 @@ table {
     font-family:  'Passion One', cursive;
   }
   
+  span {
+  font-weight: bold;
+  color: #FFFFFF;
+  }
 `;
