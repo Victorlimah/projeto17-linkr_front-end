@@ -62,6 +62,10 @@ export const PostBody = styled.div`
     color: #B7B7B7;
   }
 
+  a {
+    text-decoration: none;
+  }
+
   @media (min-width: 768px) {
     width: 490px;
     margin-left: 18px;
@@ -76,7 +80,6 @@ export const PostBody = styled.div`
         margin-top: 19px;
     }
   }
-
 `
 
 export const linkCard = styled.div`
@@ -90,29 +93,38 @@ export const linkCard = styled.div`
   position: relative;
 
   h3 {
+    width: 165px;
+    margin-top: 7px;
+    margin-left: 11px;
     font-family: 'Lato';
     font-style: normal;
     font-weight: 400;
-    font-size: 16px;
-    line-height: 19px;
+    font-size: 11px;
+    line-height: 11px;
     color: #CECECE;
   }
 
   p {
+    width: 165px;
+    margin-top: 4px;
+    margin-left: 11px;
     font-family: 'Lato';
     font-style: normal;
     font-weight: 400;
-    font-size: 11px;
-    line-height: 13px;
+    font-size: 9px;
+    line-height: 9px;
     color: #9B9595;
   }
 
   h4 {
+    width: 155px;
+    margin-top: 4px;
+    margin-left: 11px;
     font-family: 'Lato';
     font-style: normal;
     font-weight: 400;
-    font-size: 11px;
-    line-height: 13px;
+    font-size: 9px;
+    line-height: 9px;
     color: #CECECE;
   }
 
@@ -124,9 +136,8 @@ export const linkCard = styled.div`
     top: 0px;
     bottom: 0px;
     background: url(image.png);
-    border-radius: 0px 12px 13px 0px;
+    border-radius: 0px 11px 11px 0px;
   }
-
 
   @media (min-width: 768px) {
     width: 503px;
@@ -136,7 +147,43 @@ export const linkCard = styled.div`
 
     img {
       width: 153px;
-      height: 115px;
+      height: 155px;
+    }
+
+    h3 {
+      width: 302px;
+      margin-top: 22px;
+      margin-left: 20px;
+      font-family: 'Lato';
+      font-style: normal;
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 17px;
+      color: #CECECE;
+    }
+  
+    p {
+      width: 302px;
+      margin-top: 5px;
+      margin-left: 20px;
+      font-family: 'Lato';
+      font-style: normal;
+      font-weight: 400;
+      font-size: 11px;
+      line-height: 12px;
+      color: #9B9595;
+    }
+  
+    h4 {
+      width: 302px;
+      margin-top: 13px;
+      margin-left: 20px;
+      font-family: 'Lato';
+      font-style: normal;
+      font-weight: 400;
+      font-size: 11px;
+      line-height: 12px;
+      color: #CECECE;
     }
   }
 `

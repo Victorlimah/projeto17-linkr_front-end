@@ -3,7 +3,6 @@ import styled from "styled-components";
 export const Container = styled.div`
   display: flex;
   width: 100vw;
-  height: 100vh;
   flex-direction: column;
   align-items: center;
   background-color: #333333;
@@ -22,7 +21,6 @@ export const PostsColumn = styled.div`
 
 export const H2 = styled.h2`
   display: flex;
-  margin-left: 17px;
   margin-top: 91px;
   width: 111px;
   height: 49px;
@@ -37,4 +35,13 @@ export const H2 = styled.h2`
     margin-left: 0px;
     margin-top: 78px;
   }
+`
+
+export const Loader = styled.div`
+display: flex;
+width: 100vw;
+height: 100vh;
+align-items: center;
+justify-content: center;
+background-color: #333333;
 `

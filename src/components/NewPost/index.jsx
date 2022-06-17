@@ -12,11 +12,11 @@ export default function NewPost(props) {
 
     async function publicate(event) {
         event.preventDefault();
-        setPublish(true);
         try {
             await axios.post(`${API}/timeline`, form);
             console.log("Posted succesfully")
-            setPublish(false);
+            setPublish(!publish);
+            setForm({...form, url: "", description: ""})
         } catch (err) {
             alert("An error occured while trying to post your link")
         }
