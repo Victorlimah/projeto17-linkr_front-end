@@ -3,7 +3,6 @@ import { useParams, useNavigate } from "react-router-dom";
 import DataContext from "../../providers/DataContext";
 import axios from "axios";
 import ReactHashtag from "@mdnm/react-hashtag";
-
 import * as S from "./style";
 import Header from "../../components/Header";
 import Posts from "../../components/Posts";
@@ -18,9 +17,7 @@ export default function Hashtag() {
   const API = data.API;
 
   useEffect(() => {
-    criarPost();
-    criarTrending();
-    setHashtagTitle(hashtag)
+    redirect(hashtag)
   }, [setPosts, API]);
 
   function HashtagTitle() {
@@ -44,6 +41,7 @@ export default function Hashtag() {
                 linkDescription={item.linkDescription}
                 linkTitle={item.linkTitle}
                 linkPicture={item.linkPicture}
+                redirect={redirect}
               />
             );
           })}
@@ -58,11 +56,7 @@ export default function Hashtag() {
               <S.TrendingTag key={e.name + index}>
                 <ReactHashtag
                   onHashtagClick={(val) => {
-                    hashtag = val.replace("#", "");
-                    navigate(`/hashtag/${hashtag}`)
-                    criarPost();
-                    criarTrending();
-                    setHashtagTitle(hashtag)
+                    redirect(val)
                   }}
                 >
                   {"#" + e.name}
@@ -75,11 +69,19 @@ export default function Hashtag() {
     </S.Container>
   );
 
-  async function criarPost() {
+  function redirect(val) {
+    val = val.replace("#", "");
+    navigate(`/hashtag/${val}`)
+    criarPost(val);
+    criarTrending();
+    setHashtagTitle(val)
+  }
+
+  async function criarPost(val) {
     try {
-      const request = await axios.get(`${API}/hashtag-timeline/${hashtag}`);
+      const request = await axios.get(`${API}/hashtag-timeline/${val}`);
       const { data } = request;
-      setPosts(data);
+      setPosts([...data]);
     } catch (e) {
       console.log(e, "erro no criarPost");
     }
