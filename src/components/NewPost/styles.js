@@ -88,7 +88,6 @@ export const UrlInput = styled.input`
         background: #EFEFEF;
         border-radius: 5px;
       }
-
 `
 
 export const TextInput = styled.input`
