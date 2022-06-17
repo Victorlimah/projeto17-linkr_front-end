@@ -32,7 +32,7 @@ export const Search = styled.div`
   display: flex;
   flex-direction: column;
   padding-bottom: 23px;
-  margin-top: 160px;
+  margin-top: 117px;
   background: #E7E7E7;
   width: 563px;
   z-index: 3;

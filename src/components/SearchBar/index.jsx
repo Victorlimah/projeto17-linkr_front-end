@@ -1,13 +1,39 @@
-import * as S from "./styles";
-import { useState } from "react";
+import { useState, useEffect, useContext } from "react";
 import { DebounceInput } from 'react-debounce-input';
+import DataContext from "../../providers/DataContext";
+import axios from "axios";
 //import { IoMdSearch } from "react-icons/io";
+
+import * as S from "./styles";
 import OptionsSearchBar from "../OptionsSearchBar";
+
 
 export default function SearchBar() {
 
     const [value, setValue] = useState("");
     const [users, setUsers] = useState([]);
+    const { data } = useContext(DataContext);
+    const API = data.API;
+    let search = "";
+
+    function catchUsers(value) {
+        if (value) {
+            axios
+                .post(`${API}/timeline-users`, { value })
+                .then((response) => {
+                    const { data } = response;
+                    setUsers(data);
+                })
+        } else {
+            setUsers([]);
+        }
+    }
+
+    useEffect(() => {
+        search = value;
+    }, [value])
+
+    console.log(users)
 
     return users.length === 0 ? (
         <S.SearchEmpty>
@@ -17,10 +43,15 @@ export default function SearchBar() {
                 element="input"
                 placeholder="Search for people"
                 value={value}
-                onChange={(e) => setValue(e.target.value)}
+                onChange={(e) => {
+                    setValue(e.target.value)
+                    if (value) {
+                        catchUsers(search)
+                    }
+                }}
             >
             </DebounceInput>
-        </S.SearchEmpty>
+        </S.SearchEmpty >
     ) : (
         <S.Search>
             <DebounceInput
@@ -29,7 +60,11 @@ export default function SearchBar() {
                 element="input"
                 placeholder="Search for people"
                 value={value}
-                onChange={(e) => setValue(e.target.value)}
+                onChange={(e) => {
+                    setValue(e.target.value)
+                    catchUsers()
+                }
+                }
             >
             </DebounceInput>
             {
