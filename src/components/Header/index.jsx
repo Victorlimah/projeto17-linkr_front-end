@@ -2,6 +2,7 @@ import * as S from "./styles";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
+import SearchBar from "../SearchBar";
 
 export default function Header({ picture }) {
   const [show, setShow] = useState(false);
@@ -11,6 +12,7 @@ export default function Header({ picture }) {
     <>
       <S.Header>
         <S.Title>linkr</S.Title>
+        <SearchBar/>
         <S.User onClick={() => setShow(!show)}>
           {show ? <IoIosArrowUp size={30} /> : <IoIosArrowDown size={30} />}
           <S.UserPicture src={picture} />
