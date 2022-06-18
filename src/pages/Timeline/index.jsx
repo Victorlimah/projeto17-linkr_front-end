@@ -23,7 +23,6 @@ export default function Timeline() {
         request.then(response => {
             const { data } = response;
             setPosts(data);
-            console.log(data)
             setCount(count + 1)
             setLoad(true)
         })

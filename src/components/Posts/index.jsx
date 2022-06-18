@@ -14,14 +14,11 @@ export default function Posts(props) {
     const API = data.API;
     const username = data.user.username;
 
-    console.log(postId + " " + username + " " + liked);
-
     useEffect(() => {
        async function checkLiked() {
          const request = await axios.post(`${API}/checkLiked`, {username, postId});
          const { data } = request;
          setLiked(data.liked);
-         console.log(liked);
        }
       checkLiked();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -29,16 +26,18 @@ export default function Posts(props) {
 
     //Fazer a requisição para o servidor para curtir o post
     async function like() {
-        const request = await axios.post(`${API}/like`, { name });
+      //TODO: remover o onClick do botão de curtir
+        const request = await axios.post(`${API}/like`, { username, postId });
         const { data } = request;
         setLiked(data.liked);
     }
 
     //Fazer a requisição para o servidor para descurtir o post
     async function unlike() {
-        const request = await axios.post(`${API}/unlike`, { name });
-        const { data } = request;
-        setLiked(data.liked);
+      //TODO: remover o onClick do botão de descurtir
+      const request = await axios.post(`${API}/unlike`, { username, postId });
+      const { data } = request;
+      setLiked(data.liked);
     }
 
     const likes = 0;
@@ -46,7 +45,7 @@ export default function Posts(props) {
       <S.Container>
         <div>
           <S.UserPicture src={picture} />
-          <S.LikesContainer onClick={() => setLiked(!liked)}>
+          <S.LikesContainer onClick={() => liked? unlike() : like()}>
             {liked ? <AiFillHeart color="#ff0000" /> : <AiOutlineHeart />}
             <p>{likes} likes</p>
           </S.LikesContainer>
