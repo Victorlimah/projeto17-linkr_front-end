@@ -36,3 +36,21 @@ export const H2 = styled.h2`
   line-height: 49px;
   color: #ffffff;
 `;
+
+export const Loader = styled.div`
+display: flex;
+width: 100vw;
+height: 100vh;
+align-items: center;
+justify-content: center;
+background-color: #333333;
+
+h1 {
+  font-style: normal;
+  font-weight: 900;
+  font-size: 60px;
+  line-height: 84px;
+  letter-spacing: 0.05em;
+  color: #ffffff;
+}
+`
