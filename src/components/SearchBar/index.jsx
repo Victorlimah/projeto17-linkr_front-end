@@ -51,7 +51,7 @@ export default function SearchBar() {
                     users.map((option) => {
                         return (
                             <OptionsSearchBar key={option.picture + option.username}
-                                username={option.username} picture={option.picture} />
+                                username={option.username} picture={option.picture} id={option.id}/>
                         )
                     })
                 }

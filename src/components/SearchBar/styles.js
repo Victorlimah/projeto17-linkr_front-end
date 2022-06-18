@@ -6,6 +6,18 @@ export const SearchAll = styled.div`
   width: 563px;
   justify-content: center;
   border-radius: 8px;
+
+  a:link{
+  text-decoration: none;
+  }
+
+  a:visited{
+  text-decoration: none;
+  }
+
+  a:hover{
+  text-decoration: none;
+  }
 `
 
 export const SearchEmpty = styled.div`
