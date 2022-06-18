@@ -6,16 +6,15 @@ import axios from "axios";
 export default function NewPost(props) {
     const { data } = useContext(DataContext);
     const API = data.API;
-
     const [form, setForm] = useState({ id: data.user.id, url: "", description: ""});
-    const { publish, setPublish } = props;
+   const { publish, setPublish } = props;
+    
 
     async function publicate(event) {
         event.preventDefault();
         setPublish(true);
         try {
             await axios.post(`${API}/timeline`, form);
-            console.log("Posted succesfully")
             setForm({...form, url: "", description: ""})
             setPublish(false);
         } catch (err) {
@@ -32,11 +31,13 @@ export default function NewPost(props) {
                 type="url"
                 placeholder="http://..."
                 onChange={(e) => setForm({ ...form, url: e.target.value })}
+                value={form.url}
             />
             <S.TextInput
                 type="text"
                 placeholder="Awesome article about #javascript"
                 onChange={(e) => setForm({ ...form, description: e.target.value })}
+                value={form.description}
             />
             <S.Button type="submit">{!publish ? "Pubish": "Publishing..."}</S.Button>
         </S.Form>
