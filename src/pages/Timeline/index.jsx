@@ -4,24 +4,23 @@ import NewPost from "../../components/NewPost";
 import Posts from "../../components/Posts";
 import { useState, useEffect, useContext } from "react";
 import DataContext from "../../providers/DataContext";
+import LoadingPage from '../../components/LoadingPage';
 import axios from "axios";
 
 export default function Timeline() {
     const [posts, setPosts] = useState([]);
-    const [publish, setPublish] = useState(false);
     const [load, setLoad] = useState(false)
-    const [count, setCount] = useState(0)
+    const [publish, setPublish] = useState(false);
     const { data } = useContext(DataContext);
     const API = data.API;
 
-    useEffect( async () => {
+    useEffect(async () => {
         setLoad(false)
         const request = axios.get(`${API}/timeline`);
         request.then(response => {
             const { data } = response;
             setPosts(data);
-            setCount(count + 1)
-            setLoad(true)
+            setLoad(true);
         })
         request.catch(warning)
     }, [publish])
@@ -35,7 +34,7 @@ export default function Timeline() {
             <S.Container>
                 <S.PostsColumn>
                     <S.Loader>
-                        <h1>Loading</h1>
+                        <LoadingPage />
                     </S.Loader>
                 </S.PostsColumn>
             </S.Container>
@@ -43,9 +42,11 @@ export default function Timeline() {
     } else if (posts.length === 0) {
         return (
             <S.Container>
+                <Header picture={data.user.picture} />
+                <S.H2>
+                    <h2>timeline</h2>
+                </S.H2>
                 <S.PostsColumn>
-                    <Header picture={data.user.picture} />
-                    <S.H2>timeline</S.H2>
                     <NewPost
                         publish={publish}
                         setPublish={setPublish}
@@ -57,9 +58,11 @@ export default function Timeline() {
     } else {
         return (
             <S.Container>
+                <Header picture={data.user.picture} />
+                <S.H2>
+                    <h2>timeline</h2>
+                </S.H2>
                 <S.PostsColumn>
-                    <Header picture={data.user.picture} />
-                    <S.H2>timeline</S.H2>
                     <NewPost
                         publish={publish}
                         setPublish={setPublish}

@@ -29,21 +29,34 @@ export const PostsColumn = styled.div`
   }
 `
 
-export const H2 = styled.h2`
-  display: flex;
+export const H2 = styled.div`
   margin-top: 91px;
-  width: 111px;
+  width: 375px;
   height: 49px;
-  font-family: 'Oswald';
-  font-style: normal;
-  font-weight: 700;
-  font-size: 33px;
-  line-height: 49px;
-  color: #FFFFFF;
+
+  h2{
+    margin-left: 17px;
+    font-family: 'Oswald';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 33px;
+    line-height: 49px;
+    color: #FFFFFF;
+  }
 
   @media (min-width: 768px) {
-    margin-left: 0px;
+    width: 611px;
     margin-top: 78px;
+
+    h2{
+      margin-left: 0px;
+      font-family: 'Oswald';
+      font-style: normal;
+      font-weight: 700;
+      font-size: 33px;
+      line-height: 49px;
+      color: #FFFFFF;
+    }
   }
 `
 
