@@ -6,6 +6,8 @@ import {AiFillHeart} from "react-icons/ai/";
 import DataContext from "../../providers/DataContext";
 import axios from "axios";
 import { Tooltip } from "@mui/material";
+import { BsPencilFill } from "react-icons/bs";
+import { RiDeleteBin7Fill } from "react-icons/ri";
 
 export default function Posts(props) {
     const { postId, name, picture, link, description, linkDescription, linkTitle, linkPicture, redirect } = props;
@@ -13,6 +15,7 @@ export default function Posts(props) {
     const [ liked, setLiked ] = useState(false);
     const [ likes, setLikes ] = useState(0);
     const [ names, setNames ] = useState([]);
+    const [ userId, setUserId ] = useState(0)
     const { data } = useContext(DataContext);
     const API = data.API;
     const username = data.user.username;
@@ -29,9 +32,33 @@ export default function Posts(props) {
           setNames(data.names);
         }
        }
+
+      async function checkUserId() {
+        const request = await axios.get(`${API}/publication/${postId}`)
+        setUserId(request.data.userId)
+      }
+
+      checkUserId()
       checkLiked();
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
+
+    function RenderIcons() {
+      if(!userId) return <></>
+      
+      if(data.user.id === userId) {
+        return (
+        <S.IconsContainer>
+          <BsPencilFill className="icone"></BsPencilFill>
+          <RiDeleteBin7Fill className="icone"></RiDeleteBin7Fill>
+        </S.IconsContainer>
+        )
+      } else {
+        return (
+          <></>
+        )
+      }
+    }
 
     async function like() {
       //TODO: remover o onClick do botão de curtir
@@ -87,6 +114,7 @@ export default function Posts(props) {
             </S.LikesContainer>
           </Tooltip>
         </div>
+        <RenderIcons />
         <S.PostBody>
           <h2>{name}</h2>
           <p>
