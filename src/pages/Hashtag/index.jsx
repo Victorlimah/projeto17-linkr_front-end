@@ -2,16 +2,17 @@ import { useState, useEffect, useContext } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import DataContext from "../../providers/DataContext";
 import axios from "axios";
-import ReactHashtag from "@mdnm/react-hashtag";
+
 import * as S from "./style";
+
 import Header from "../../components/Header";
 import Posts from "../../components/Posts";
+import Trending from "../../components/Trending";
 
 export default function Hashtag() {
   const [posts, setPosts] = useState([]);
   let { hashtag } = useParams();
   const [hashtagTitle, setHashtagTitle] = useState('')
-  const [hashtags, setHashtags] = useState([]);
   const navigate = useNavigate();
   const { data } = useContext(DataContext);
   const API = data.API;
@@ -46,25 +47,7 @@ export default function Hashtag() {
             );
           })}
         </S.PostsColumn>
-        <S.TrendingContainer>
-          <S.TitleContainer>
-            <S.TrendingTitle>trending</S.TrendingTitle>
-          </S.TitleContainer>
-          {hashtags.map((e, index) => {
-            e.name = e.name.replace("#", "");
-            return (
-              <S.TrendingTag key={e.name + index}>
-                <ReactHashtag
-                  onHashtagClick={(val) => {
-                    redirect(val)
-                  }}
-                >
-                  {"#" + e.name}
-                </ReactHashtag>
-              </S.TrendingTag>
-            );
-          })}
-        </S.TrendingContainer>
+        <Trending  redirect={redirect} />
       </S.Wrapper>
     </S.Container>
   );
@@ -73,7 +56,6 @@ export default function Hashtag() {
     val = val.replace("#", "");
     navigate(`/hashtag/${val}`)
     criarPost(val);
-    criarTrending();
     setHashtagTitle(val)
   }
 
@@ -85,10 +67,5 @@ export default function Hashtag() {
     } catch (e) {
       console.log(e, "erro no criarPost");
     }
-  }
-
-  async function criarTrending() {
-    const getTags = await axios.get(`${API}/trending`);
-    setHashtags(getTags.data);
   }
 }
