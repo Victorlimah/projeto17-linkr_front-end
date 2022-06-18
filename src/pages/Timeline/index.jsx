@@ -39,7 +39,7 @@ export default function Timeline() {
                     <S.Loader>
                         <LoadingPage />
                     </S.Loader>
-                </S.PostsColumn>
+                </S.PostsColumn>    
             </S.Container>
         )
     } else if (posts.length === 0) {
@@ -70,10 +70,10 @@ export default function Timeline() {
                         publish={publish}
                         setPublish={setPublish}
                     />
-                    {console.log(posts)}
                     {posts.map((post, index) => {
                         return (
                             <Posts
+                                postId={post.id}
                                 key={post.username + post.description + index}
                                 name={post.username}
                                 picture={post.picture}
