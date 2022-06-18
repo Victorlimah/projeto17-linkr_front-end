@@ -1,8 +1,8 @@
-import { useState, useEffect, useContext } from "react";
+import { useState, useContext } from "react";
 import { DebounceInput } from 'react-debounce-input';
 import DataContext from "../../providers/DataContext";
 import axios from "axios";
-//import { IoMdSearch } from "react-icons/io";
+import { IoMdSearch } from "react-icons/io";
 
 import * as S from "./styles";
 import OptionsSearchBar from "../OptionsSearchBar";
@@ -14,10 +14,9 @@ export default function SearchBar() {
     const [users, setUsers] = useState([]);
     const { data } = useContext(DataContext);
     const API = data.API;
-    let search = "";
 
-    function catchUsers(value) {
-        if (value) {
+    function catchUsers() {
+        if (value !== "") {
             axios
                 .post(`${API}/timeline-users`, { value })
                 .then((response) => {
@@ -29,53 +28,35 @@ export default function SearchBar() {
         }
     }
 
-    useEffect(() => {
-        search = value;
-    }, [value])
-
-    console.log(users)
-
-    return users.length === 0 ? (
-        <S.SearchEmpty>
-            <DebounceInput
-                minLength={3}
-                debounceTimeout={300}
-                element="input"
-                placeholder="Search for people"
-                value={value}
-                onChange={(e) => {
-                    setValue(e.target.value)
-                    if (value) {
-                        catchUsers(search)
-                    }
-                }}
-            >
-            </DebounceInput>
-        </S.SearchEmpty >
-    ) : (
-        <S.Search>
-            <DebounceInput
-                minLength={3}
-                debounceTimeout={300}
-                element="input"
-                placeholder="Search for people"
-                value={value}
-                onChange={(e) => {
-                    setValue(e.target.value)
-                    catchUsers()
+    return (
+        <S.SearchAll>
+            <S.SearchEmpty>
+                <DebounceInput
+                    className="input"
+                    minLength={2}
+                    debounceTimeout={300}
+                    element="input"
+                    placeholder="Search for people"
+                    value={value}
+                    onChange={(e) => {
+                        setValue(e.target.value);
+                        catchUsers();
+                    }}
+                >
+                </DebounceInput>
+                <IoMdSearch className="icon" />
+            </S.SearchEmpty>
+            <S.Search isEmpty={value.length === 0}>
+                {value !== "" &&
+                    users.map((option) => {
+                        return (
+                            <OptionsSearchBar key={option.picture + option.username}
+                                username={option.username} picture={option.picture} />
+                        )
+                    })
                 }
-                }
-            >
-            </DebounceInput>
-            {
-                users.map((option) => {
-                    return (
-                        <OptionsSearchBar key={option.picture + option.username}
-                            username={option.username} picture={option.picture} />
-                    )
-                })
-            }
-        </S.Search>
+            </S.Search >
+        </S.SearchAll>
     )
 
 }
