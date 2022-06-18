@@ -60,11 +60,9 @@ export default function Login() {
       localStorage.setItem('token', response.data.token);
       const str = response.data.token.split(".")[1];
       let user = window.atob(str);
-      //TODO: Fazer destructing no user
-      let picture = JSON.parse(user).picture;
-      let id = JSON.parse(user).id;
+      const { picture, id, username } = JSON.parse(user);
 
-      setData({...data, user:{ id, picture }});
+      setData({...data, user:{ id, picture, username }});
       navigate("/timeline");
     } catch (error) {
       console.log(error);

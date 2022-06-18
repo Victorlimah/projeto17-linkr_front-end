@@ -23,6 +23,7 @@ export default function Timeline() {
         request.then(response => {
             const { data } = response;
             setPosts(data);
+            console.log(data)
             setCount(count + 1)
             setLoad(true)
         })
@@ -40,7 +41,7 @@ export default function Timeline() {
                     <S.Loader>
                         <h1>Loading</h1>
                     </S.Loader>
-                </S.PostsColumn>
+                </S.PostsColumn>    
             </S.Container>
         )
     } else if (posts.length === 0) {
@@ -67,10 +68,10 @@ export default function Timeline() {
                         publish={publish}
                         setPublish={setPublish}
                     />
-                    {console.log(posts)}
                     {posts.map((post, index) => {
                         return (
                             <Posts
+                                postId={post.id}
                                 key={post.username + post.description + index}
                                 name={post.username}
                                 picture={post.picture}
