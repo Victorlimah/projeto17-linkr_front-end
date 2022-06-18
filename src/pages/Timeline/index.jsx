@@ -5,25 +5,35 @@ import Posts from "../../components/Posts";
 import { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import DataContext from "../../providers/DataContext";
-import LoadingPage from '../../components/LoadingPage';
 import axios from "axios";
 
 
 export default function Timeline() {
     const [posts, setPosts] = useState([]);
-    const [load, setLoad] = useState(false)
     const [publish, setPublish] = useState(false);
-    const { data } = useContext(DataContext);
+    const [load, setLoad] = useState(false)
+    const [count, setCount] = useState(0)
+    const { data, setData } = useContext(DataContext);
     const navigate = useNavigate()
     const API = data.API;
 
-    useEffect(async () => {
+    useEffect(() => {
+      const token = localStorage.getItem('token').split('.')[1];
+      if(!token) navigate('/signin');
+      let user = window.atob(token);
+      const { picture, id, username } = JSON.parse(user);
+
+      setData({...data, user:{ id, picture, username }});
+    }, [])
+
+    useEffect( async () => {
         setLoad(false)
         const request = axios.get(`${API}/timeline`);
         request.then(response => {
             const { data } = response;
             setPosts(data);
-            setLoad(true);
+            setCount(count + 1)
+            setLoad(true)
         })
         request.catch(warning)
     }, [publish])
@@ -37,7 +47,7 @@ export default function Timeline() {
             <S.Container>
                 <S.PostsColumn>
                     <S.Loader>
-                        <LoadingPage />
+                        <h1>Loading</h1>
                     </S.Loader>
                 </S.PostsColumn>    
             </S.Container>
@@ -45,11 +55,9 @@ export default function Timeline() {
     } else if (posts.length === 0) {
         return (
             <S.Container>
-                <Header picture={data.user.picture} />
-                <S.H2>
-                    <h2>timeline</h2>
-                </S.H2>
                 <S.PostsColumn>
+                    <Header picture={data.user.picture} />
+                    <S.H2>timeline</S.H2>
                     <NewPost
                         publish={publish}
                         setPublish={setPublish}
@@ -61,11 +69,9 @@ export default function Timeline() {
     } else {
         return (
             <S.Container>
-                <Header picture={data.user.picture} />
-                <S.H2>
-                    <h2>timeline</h2>
-                </S.H2>
                 <S.PostsColumn>
+                    <Header picture={data.user.picture} />
+                    <S.H2>timeline</S.H2>
                     <NewPost
                         publish={publish}
                         setPublish={setPublish}
