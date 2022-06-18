@@ -187,3 +187,33 @@ export const linkCard = styled.div`
     }
   }
 `
+
+export const Hashtag = styled.span`
+  font-weight: bold;
+  color: #FFFFFF;
+`;
+
+export const LikesContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: absolute;
+  left: 22px;
+  top: 72px;
+  border-radius: 50%;
+  margin-right: 10px;
+  font-family: 'Lato';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 11px;
+  line-height: 13px;
+  text-align: center;
+
+color: #FFFFFF;;
+
+  svg{
+    width: 40px;
+    height: 40px;
+  }
+
+`;

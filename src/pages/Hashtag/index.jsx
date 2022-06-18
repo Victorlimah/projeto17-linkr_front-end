@@ -4,6 +4,7 @@ import DataContext from "../../providers/DataContext";
 import axios from "axios";
 
 import * as S from "./style";
+
 import Header from "../../components/Header";
 import Posts from "../../components/Posts";
 import Trending from "../../components/Trending";
@@ -14,7 +15,6 @@ export default function Hashtag() {
   const { hashtag } = useParams();
   const [load, setLoad] = useState(true)
   const [hashtagTitle, setHashtagTitle] = useState('')
-  const [hashtags, setHashtags] = useState([]);
   const navigate = useNavigate();
   const { data } = useContext(DataContext);
   const API = data.API;
@@ -72,17 +72,12 @@ export default function Hashtag() {
 
   async function criarPost(val) {
     try {
-      const request = await axios.get(`${API}/hashtag-timeline/${hashtag}`);
+      const request = await axios.get(`${API}/hashtag-timeline/${val}`);
       const { data } = request;
       setPosts([...data]);
       setLoad(false)
     } catch (e) {
       console.log(e, "erro no criarPost");
     }
-  }
-
-  async function criarTrending() {
-    const getTags = await axios.get(`${API}/trending`);
-    setHashtags(getTags.data);
   }
 }

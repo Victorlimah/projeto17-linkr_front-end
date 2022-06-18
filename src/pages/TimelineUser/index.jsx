@@ -1,6 +1,5 @@
 import * as S from "./styles";
 import Header from "../../components/Header";
-import NewPost from "../../components/NewPost";
 import Posts from "../../components/Posts";
 import { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
@@ -9,17 +8,17 @@ import LoadingPage from '../../components/LoadingPage';
 import axios from "axios";
 
 
-export default function Timeline() {
+export default function TimelineUser() {
     const [posts, setPosts] = useState([]);
     const [load, setLoad] = useState(false)
     const [publish, setPublish] = useState(false);
-    const { data } = useContext(DataContext);
+    const { data, id } = useContext(DataContext);
     const navigate = useNavigate()
     const API = data.API;
 
     useEffect(async () => {
         setLoad(false)
-        const request = axios.get(`${API}/timeline`);
+        const request = axios.get(`${API}/user/${id}`);
         request.then(response => {
             const { data } = response;
             setPosts(data);
@@ -34,42 +33,40 @@ export default function Timeline() {
 
     if (!load) {
         return (
-            <S.Container>
-                <S.PostsColumn>
-                    <S.Loader>
+            <S.ContainerUser>
+                <S.PostsColumnUser>
+                    <S.LoaderUser>
                         <LoadingPage />
-                    </S.Loader>
-                </S.PostsColumn>    
-            </S.Container>
+                    </S.LoaderUser>
+                </S.PostsColumnUser>
+            </S.ContainerUser>
         )
     } else if (posts.length === 0) {
         return (
-            <S.Container>
+            <S.ContainerUser>
                 <Header picture={data.user.picture} />
-                <S.H2>
-                    <h2>timeline</h2>
-                </S.H2>
-                <S.PostsColumn>
-                    <NewPost
-                        publish={publish}
-                        setPublish={setPublish}
-                    />
+                <S.H2User>
+                    <S.UserInfo>
+                        <img src={posts[0].picture} alt="user"></img>
+                        <h2>{posts[0].username}'s posts</h2>
+                    </S.UserInfo>
+                </S.H2User>
+                <S.PostsColumnUser>
                     <h5>There are no posts yet</h5>
-                </S.PostsColumn>
-            </S.Container>
+                </S.PostsColumnUser>
+            </S.ContainerUser>
         )
     } else {
         return (
-            <S.Container>
+            <S.ContainerUser>
                 <Header picture={data.user.picture} />
-                <S.H2>
-                    <h2>timeline</h2>
-                </S.H2>
-                <S.PostsColumn>
-                    <NewPost
-                        publish={publish}
-                        setPublish={setPublish}
-                    />
+                <S.H2User>
+                    <S.UserInfo>
+                        <img src={posts[0].picture} alt="user"></img>
+                        <h2>{posts[0].username}'s posts</h2>
+                    </S.UserInfo>
+                </S.H2User>
+                <S.PostsColumnUser>
                     {posts.map((post, index) => {
                         return (
                             <Posts
@@ -86,11 +83,11 @@ export default function Timeline() {
                                     val = val.replace("#", "")
                                     navigate(`/hashtag/${val}`)
                                 }}
-                                />
+                            />
                         )
                     })}
-                </S.PostsColumn>
-            </S.Container>
+                </S.PostsColumnUser>
+            </S.ContainerUser>
         )
     }
 }

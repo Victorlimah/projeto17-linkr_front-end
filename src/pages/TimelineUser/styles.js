@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const Container = styled.div`
+export const ContainerUser = styled.div`
   display: flex;
   width: 100vw;
   flex-direction: column;
@@ -8,11 +8,12 @@ export const Container = styled.div`
   background-color: #333333;
 `;
 
-export const PostsColumn = styled.div`
+export const PostsColumnUser = styled.div`
    width: 100%;
    display: flex;
    flex-direction: column;
    align-items: center;
+   margin-top: 50px;
 
    h5 {
     margin-top: 50px;
@@ -29,14 +30,14 @@ export const PostsColumn = styled.div`
   }
 `
 
-export const H2 = styled.div`
+export const H2User = styled.div`
   margin-top: 91px;
   width: 375px;
   height: 49px;
 
   h2{
     margin-left: 17px;
-    font-family: 'Oswald';
+    font-family: 'Oswald', sans-serif;
     font-style: normal;
     font-weight: 700;
     font-size: 33px;
@@ -50,7 +51,7 @@ export const H2 = styled.div`
 
     h2{
       margin-left: 0px;
-      font-family: 'Oswald';
+      font-family: 'Oswald', sans-serif;
       font-style: normal;
       font-weight: 700;
       font-size: 33px;
@@ -60,7 +61,31 @@ export const H2 = styled.div`
   }
 `
 
-export const Loader = styled.div`
+export const UserInfo = styled.div`
+margin: 20px auto 0;
+display: flex;
+justify-content: left;
+align-items: center;
+
+img{
+width: 50px;
+height: 50px;
+margin-left: 18px;
+border-radius: 26.5px;  
+}
+
+h2{
+margin-left: 17px;
+font-family: 'Oswald', sans-serif;
+font-style: normal;
+font-weight: 700;
+font-size: 33px;
+line-height: 49px;
+color: #FFFFFF;
+}
+`
+
+export const LoaderUser = styled.div`
 display: flex;
 width: 100vw;
 height: 100vh;

@@ -8,7 +8,6 @@ export const User = styled.div`
   align-items: center;
 
   p{
-  padding-top: 8px;
   padding-left: 12px;
   font-family: 'Lato';
   font-style: normal;
@@ -22,7 +21,6 @@ export const User = styled.div`
   width: 39px;
   height: 39px;
   margin-left: 17px;
-  margin-top: 15px;
   border-radius: 304px;
   }
 `
