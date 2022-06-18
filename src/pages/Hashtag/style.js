@@ -32,37 +32,20 @@ export const H2 = styled.h2`
   color: #ffffff;
 `;
 
-export const TrendingContainer = styled.aside`
-  width: 301px;
-  height: 406px;
-  margin: 140px 0 0 25px;
-  background-color: #171717;
-  border-radius: 16px;
-`;
+export const Loader = styled.div`
+display: flex;
+width: 100vw;
+height: 100vh;
+align-items: center;
+justify-content: center;
+background-color: #333333;
 
-export const TitleContainer = styled.div`
-  width: 100%;
-  height: 61px;
-  border-bottom: 1px solid #484848; ;
-  margin: 0 0 22px 0;
-`;
-
-export const TrendingTitle = styled.h3`
-  font-family: "Oswald";
+h1 {
   font-style: normal;
-  font-weight: 700;
-  font-size: 27px;
-  line-height: 61px;
+  font-weight: 900;
+  font-size: 60px;
+  line-height: 84px;
+  letter-spacing: 0.05em;
   color: #ffffff;
-  margin-left: 16px;
-`;
-
-export const TrendingTag = styled.p`
-  font-family: 'Lato';
-  font-style: normal;
-  font-weight: 700;
-  font-size: 19px;
-  line-height: 30px;
-  color: #ffffff;
-  margin-left: 16px;
+}
 `
