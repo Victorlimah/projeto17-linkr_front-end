@@ -4,6 +4,7 @@ export default createGlobalStyle`
   @import url('https://fonts.googleapis.com/css2?family=Passion+One:wght@400;700;900&display=swap');
   @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
   @import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@700&display=swap');
 
 html,
 body,
@@ -137,5 +138,11 @@ table {
   span {
   font-weight: bold;
   color: #FFFFFF;
+  cursor: pointer;
+  transition: color .3s ease-in-out, box-shadow .3s ease-in-out;
   }
+
+  span:hover {
+  color: #2828ff;
+}
 `;
