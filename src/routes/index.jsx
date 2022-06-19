@@ -10,10 +10,10 @@ import Hashtag from "../pages/Hashtag"
 
 export default function Router() {
   const [ data, setData ] = useState({API: "http://localhost:5050", token: "", user: {}});
-  const [id, setId] = useState(0);
+  const [idUser, setIdUser] = useState(0);
 
   return (
-    <DataContext.Provider value={{data, setData, id, setId}}>
+    <DataContext.Provider value={{data, setData, idUser, setIdUser}}>
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Initial/>} />
