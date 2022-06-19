@@ -2,7 +2,7 @@ import * as S from "./styles";
 import Header from "../../components/Header";
 import Posts from "../../components/Posts";
 import { useState, useEffect, useContext } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import DataContext from "../../providers/DataContext";
 import LoadingPage from '../../components/LoadingPage';
 import axios from "axios";
@@ -10,26 +10,38 @@ import axios from "axios";
 
 export default function TimelineUser() {
     const [posts, setPosts] = useState([]);
+    const [user, setUser] = useState([]);
     const [load, setLoad] = useState(false)
     const [publish, setPublish] = useState(false);
-    const { data, id } = useContext(DataContext);
+    const { data } = useContext(DataContext);
     const navigate = useNavigate()
     const API = data.API;
 
-    useEffect(async () => {
+    const { id } = useParams();
+
+    useEffect(() => {
+        let request = null;
+
         setLoad(false)
-        const request = axios.get(`${API}/user/${id}`);
+
+        request = axios.get(`${API}/user/${id}`);
+
         request.then(response => {
             const { data } = response;
-            setPosts(data);
+            setPosts(data[1]);
+            setUser(data[0]);
             setLoad(true);
         })
         request.catch(warning)
-    }, [publish])
+    }, [publish, id])
 
     function warning() {
         alert("An error occured while trying to fetch the posts, please refresh the page");
     }
+
+    const tag = posts.length === 0 ? "There are no posts yet" : "";
+    const img = user.length !== 0 ? <img src={user[0].picture} alt="user"></img> : "";
+    const username = user.length !== 0 ? `${user[0].username}'s posts` : "User doesn't exist";
 
     if (!load) {
         return (
@@ -41,51 +53,38 @@ export default function TimelineUser() {
                 </S.PostsColumnUser>
             </S.ContainerUser>
         )
-    } else if (posts.length === 0) {
-        return (
-            <S.ContainerUser>
-                <Header picture={data.user.picture} />
-                <S.H2User>
-                    <S.UserInfo>
-                        <img src={posts[0].picture} alt="user"></img>
-                        <h2>{posts[0].username}'s posts</h2>
-                    </S.UserInfo>
-                </S.H2User>
-                <S.PostsColumnUser>
-                    <h5>There are no posts yet</h5>
-                </S.PostsColumnUser>
-            </S.ContainerUser>
-        )
     } else {
         return (
             <S.ContainerUser>
                 <Header picture={data.user.picture} />
                 <S.H2User>
                     <S.UserInfo>
-                        <img src={posts[0].picture} alt="user"></img>
-                        <h2>{posts[0].username}'s posts</h2>
+                        {img}
+                        <h2>{username}</h2>
                     </S.UserInfo>
                 </S.H2User>
                 <S.PostsColumnUser>
-                    {posts.map((post, index) => {
-                        return (
-                            <Posts
-                                postId={post.id}
-                                key={post.username + post.description + index}
-                                name={post.username}
-                                picture={post.picture}
-                                link={post.link}
-                                description={post.description}
-                                linkDescription={post.linkDescription}
-                                linkTitle={post.linkTitle}
-                                linkPicture={post.linkPicture}
-                                redirect={(val) => {
-                                    val = val.replace("#", "")
-                                    navigate(`/hashtag/${val}`)
-                                }}
-                            />
-                        )
-                    })}
+                    <h5>{tag}</h5>
+                    {posts.length !== 0 &&
+                        posts.map((post, index) => {
+                            return (
+                                <Posts
+                                    postId={post.id}
+                                    key={post.username + post.description + index}
+                                    name={post.username}
+                                    picture={post.picture}
+                                    link={post.link}
+                                    description={post.description}
+                                    linkDescription={post.linkDescription}
+                                    linkTitle={post.linkTitle}
+                                    linkPicture={post.linkPicture}
+                                    redirect={(val) => {
+                                        val = val.replace("#", "")
+                                        navigate(`/hashtag/${val}`)
+                                    }}
+                                />
+                            )
+                        })}
                 </S.PostsColumnUser>
             </S.ContainerUser>
         )
