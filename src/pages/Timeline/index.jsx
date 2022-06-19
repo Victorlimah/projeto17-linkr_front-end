@@ -42,6 +42,18 @@ export default function Timeline() {
         alert("An error occured while trying to fetch the posts, please refresh the page");
     }
 
+    async function reloadPosts() {
+        setLoad(false)
+        const request = axios.get(`${API}/timeline`);
+        request.then(response => {
+            const { data } = response;
+            setPosts(data);
+            setCount(count + 1)
+            setLoad(true)
+        })
+        request.catch(warning)
+    }
+
     if (!load) {
         return (
             <S.Container>
@@ -92,6 +104,7 @@ export default function Timeline() {
                                     val = val.replace("#", "")
                                     navigate(`/hashtag/${val}`)
                                 }}
+                                reloadPosts={reloadPosts}
                                 />
                         )
                     })}
