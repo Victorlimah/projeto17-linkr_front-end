@@ -53,6 +53,7 @@ export default function Hashtag() {
                   linkTitle={item.linkTitle}
                   linkPicture={item.linkPicture}
                   redirect={redirect}
+                  reloadPosts={redirect}
                 />
               );
             })}

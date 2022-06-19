@@ -231,3 +231,66 @@ export const IconsContainer = styled.div`
     margin-left: 15px;
   }
 `
+
+export const ModalContainer = styled.div`
+  width: 597px;
+  height: 262px;
+  background: #333333;
+  border-radius: 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  h2 {
+    width: 338px;
+    font-family: 'Lato';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 34px;
+    line-height: 41px;
+    text-align: center;
+    color: #FFFFFF;
+    margin-bottom: 40px;
+  }
+`
+
+export const ButtonsContainer = styled.div`
+  display: flex;
+`
+
+export const CancelButton = styled.button`
+  width: 134px;
+  height: 37px;
+  background: #FFFFFF;
+  border-radius: 5px;
+  margin-right: 10px;
+  border: 0;
+
+  p {
+    font-family: 'Lato';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 22px;
+    color: #1877F2;
+  }
+`
+
+export const DeleteButton = styled.button`
+  width: 134px;
+  height: 37px;
+  background: #1877F2;
+  border-radius: 5px;
+  margin-left: 10px;
+  border: 0;
+
+  p {
+    font-family: 'Lato';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 22px;
+    color: #FFFFFF;
+  }
+`
