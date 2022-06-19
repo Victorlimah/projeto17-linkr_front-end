@@ -43,6 +43,7 @@ export default function Hashtag() {
             {posts.map((item, index) => {
               return (
                 <Posts
+                  postId={item.id}
                   key={item.username + item.description + index}
                   name={item.username}
                   picture={item.picture}
