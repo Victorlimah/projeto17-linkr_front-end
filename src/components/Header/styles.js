@@ -13,6 +13,7 @@ export const Header = styled.header`
   top: 0;
   left: 0;
   right: 0;
+  overflow: visible;
 `;
 
 export const Title = styled.h1`
@@ -45,6 +46,8 @@ export const UserPicture = styled.img`
 `;
 
 export const Container = styled.div`
+  position: fixed;
+  top: 0;
   width: 100vw;
   height: 100vh;
   z-index: 2;
@@ -53,12 +56,12 @@ export const Container = styled.div`
 export const Profile = styled.div`
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: center;  
   cursor: pointer;
   background: #151515;
   border-radius: 0 0 0 30px;
   padding: 18px 30px;
-  position: absolute;
+  position: fixed;
   top: 60px;
   right: 0;
   z-index: 1;

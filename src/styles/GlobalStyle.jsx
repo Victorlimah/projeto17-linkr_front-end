@@ -131,7 +131,11 @@ table {
   border-spacing: 0;
 }
 
-  body{
+ *{
+}
+
+body{
+    overflow-x: hidden;
     font-family:  'Passion One', cursive;
   }
   

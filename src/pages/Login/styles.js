@@ -8,6 +8,7 @@ export const Container = styled.div`
   align-items: center;
   justify-content: center;
   background-color: #333333;
+  box-sizing: border-box;
 
   @media (min-width: 768px) {
     flex-direction: row;
@@ -31,15 +32,22 @@ export const ContainerHeader = styled.div`
 
 export const Title = styled.h1`
   font-style: normal;
+  width: 100%;
+  text-align: center;
   font-weight: 900;
   font-size: 76px;
   line-height: 84px;
   letter-spacing: 0.05em;
   color: #ffffff;
+
+  @media (min-width: 768px) {
+    width: 40%;
+    text-align: left;
+  }
 `;
 
 export const Description = styled.p`
-  width: 75%;
+  width: 40%;
   font-weight: 900;
   text-align: center;
   font-size: 1.5rem;
@@ -111,8 +119,7 @@ export const FormInputField = styled.input`
 `;
 
 export const Button = styled.span`
-  width: 100%;
-  height: 3rem;
+  width: 90%;
   border: none;
   border-radius: 0.5rem;
   margin-bottom: 1rem;
@@ -123,6 +130,7 @@ export const Button = styled.span`
   text-align: center;
 
   &:hover {
+    color: #fff;
     cursor: pointer;
   }
 `;

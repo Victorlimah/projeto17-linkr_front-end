@@ -34,7 +34,7 @@ export default function SearchBar() {
                 <DebounceInput
                     className="input"
                     minLength={2}
-                    debounceTimeout={300}
+                    debounceTimeout={50}
                     element="input"
                     placeholder="Search for people"
                     value={value}
