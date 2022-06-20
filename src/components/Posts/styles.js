@@ -68,7 +68,7 @@ export const PostBody = styled.div`
   }
 
   @media (min-width: 768px) {
-    width: 490px;
+    width: 440px;
     margin-left: 18px;
 
     h2 {
@@ -219,17 +219,34 @@ color: #FFFFFF;;
 
 `;
 
-export const IconsContainer = styled.div`
+export const PencilIcone = styled.div`
   position: absolute;
-  right: 18px;
-  top: 20px;
-  height: fit-content;
+  top: 23px;
+  right: 48.5px;
 
-  .icone {
+  .pencil-icone {
+    position: absolute;
+    top: 23px;
+    right: 48.5px;
     color: #FFFFFF;
     width: 20px;
     height: 20px;
-    margin-left: 15px;
+  }
+
+`
+
+export const TrashIcone = styled.div`
+  position: absolute;
+  top: 23px;
+  right: 22px;
+
+  .trash-icone {
+    position: absolute;
+    top: 23px;
+    right: 22px;
+    color: #FFFFFF;
+    width: 20px;
+    height: 20px;
   }
 `
 
@@ -294,4 +311,24 @@ export const DeleteButton = styled.button`
     line-height: 22px;
     color: #FFFFFF;
   }
+`
+
+export const InputEditing = styled.input`
+  width: 278px;
+  height: 20px;
+  background: #FFFFFF;
+  border-radius: 5px;
+  border: 0.1px solid #FFFFFF;
+  padding-left: 11px;
+  margin-top: 17px;
+
+  @media (min-width: 768px) {
+      width: 490px;
+      height: 35px;
+      left: 86px;
+      top: 56px;
+      background: #FFFFFF;
+      border-radius: 5px;
+      margin-top: 11px;
+    }
 `

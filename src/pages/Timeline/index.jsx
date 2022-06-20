@@ -2,6 +2,7 @@ import * as S from "./styles";
 import Header from "../../components/Header";
 import NewPost from "../../components/NewPost";
 import Posts from "../../components/Posts";
+import LoadingPage from '../../components/LoadingPage';
 import { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import DataContext from "../../providers/DataContext";
@@ -59,7 +60,7 @@ export default function Timeline() {
             <S.Container>
                 <S.PostsColumn>
                     <S.Loader>
-                        <h1>Loading</h1>
+                        <LoadingPage />
                     </S.Loader>
                 </S.PostsColumn>    
             </S.Container>

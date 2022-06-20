@@ -149,4 +149,22 @@ body{
   span:hover {
   color: #2828ff;
 }
+
+.pencil-icone {
+  position: absolute;
+  top: 23px;
+  right: 49px;
+  color: #FFFFFF;
+  width: 20px;
+  height: 20px;
+}
+
+.trash-icone {
+  position: absolute;
+  top: 23px;
+  right: 20px;
+  color: #FFFFFF;
+  width: 20px;
+  height: 20px;
+}
 `;
