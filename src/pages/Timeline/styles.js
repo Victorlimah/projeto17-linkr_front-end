@@ -39,26 +39,28 @@ export const PostsColumn = styled.div`
 `;
 
 export const H2 = styled.div`
-  width: 375px;
+  margin-top: 110px;
+  margin-left: 0;
+  width: 90%;
   height: 49px;
-  margin-left: 17px;
-  font-family: 'Oswald';
+  font-family: "Oswald";
   font-style: normal;
   font-weight: 700;
   font-size: 33px;
   line-height: 49px;
-  color: #FFFFFF;
-  
+  color: #ffffff;
+  text-align: flex-start;
 
-  @media (min-width: 768px) {
-    width: 611px;
-      margin-left: 0px;
-      font-family: 'Oswald';
-      font-style: normal;
-      font-weight: 700;
-      font-size: 33px;
-      line-height: 49px;
-      color: #FFFFFF;
+  @media (max-width: 830px) {
+    margin-top: 135px;
+    width: 100%;
+    text-align: center;
+    font-family: "Oswald";
+    font-style: normal;
+    font-weight: 700;
+    font-size: 33px;
+    line-height: 49px;
+    color: #ffffff;
   }
 `;
 

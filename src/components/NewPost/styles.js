@@ -10,29 +10,35 @@ export const Form = styled.form`
   flex-direction: column;
   align-items: center;
   background-color: #ffffff;
+  border-radius: 16px;
 
   img {
-      display: none;
+    display: none;
   }
 
   @media (min-width: 768px) {
     width: 611px;
     height: 209px;
-    background: #FFFFFF;
+    background: #ffffff;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     border-radius: 16px;
 
-    img { 
-        display: flex;
-        position: absolute;
-        width: 50px;
-        height: 50px;
-        left: 15px;
-        top: 16px;
-        border-radius: 26.5px;
+    img {
+      display: flex;
+      position: absolute;
+      width: 50px;
+      height: 50px;
+      left: 15px;
+      top: 16px;
+      border-radius: 26.5px;
     }
   }
-` 
+
+  @media (max-width: 440px) {
+    width: 100%;
+    border-radius: 0px;
+  }
+`; 
 
 export const P = styled.p`
   width: 307px;
