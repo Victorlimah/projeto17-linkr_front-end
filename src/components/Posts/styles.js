@@ -6,6 +6,7 @@ export const Container = styled.div`
   position: relative;
   margin-bottom: 16px;
   background: #171717;
+  border-radius: 16px;
 
   @media (min-width: 768px) {
     width: 611px;

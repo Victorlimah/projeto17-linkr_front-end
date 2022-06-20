@@ -3,6 +3,7 @@ import styled from "styled-components";
 export const ContainerUser = styled.div`
   display: flex;
   width: 100vw;
+  min-height: 100vh;
   flex-direction: column;
   align-items: center;
   background-color: #333333;
