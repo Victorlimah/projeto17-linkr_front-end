@@ -4,7 +4,7 @@ export const Form = styled.form`
   width: 375px;
   height: 164px;
   display: flex;
-  margin-top: 19px;
+  margin-top: 13px;
   margin-bottom: 16px;
   position: relative;
   flex-direction: column;
