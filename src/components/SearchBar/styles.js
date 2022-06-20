@@ -3,8 +3,9 @@ import styled from "styled-components";
 export const SearchAll = styled.div`
   display: flex;
   flex-direction: column;
-  width: 600px;
+  align-items: center;
   justify-content: center;
+  align-items: center;
   border-radius: 8px;
   position: relative;
 
@@ -23,20 +24,19 @@ export const SearchAll = styled.div`
 
 export const SearchEmpty = styled.div`
   display: flex;
-  width: 600px;
   z-index: 5;
   justify-content: center;
-  border-radius: 8px;
+  border-radius: 0;
   position: fixed;
 
   .input {
-    width: 494px;
+    width: 500px;
     height: 30px;
     background: #ffffff;
     border-radius: 8px;
-    border: 0.1px solid #ffffff;
     position: relative;
     margin-left: 28px;
+    border: none;
   }
 
   input::placeholder {
@@ -51,15 +51,15 @@ export const SearchEmpty = styled.div`
 
   input:focus {
     box-shadow: 0 0 0 0;
-    border: 0 none;
+    border: none;
     outline: 0;
   }
 
   .icon {
     font-size: 28px;
-    right: 25px;
-    top: 6px;
-    position: relative;
+    right: 5px;
+    top: 3px;
+    position: absolute;
     color: #c6c6c6;
   }
 
@@ -67,23 +67,28 @@ export const SearchEmpty = styled.div`
     position: fixed;
     top: 55px;
     left: 0;
-    right: 0;
     width: 100%;
+    border-top: 10px solid #333333;
 
     .input {
-      width: 500px;
+      width: 89%;
       height: 40px;
-      left: 10px;
-      right: 10px;
       margin: 0 auto;
+    }
+
+    .input:focus {
+      border: 1px solid #333333;
+    }
+
+    .icon {
+      right: 45px;
+      top: 8px;
     }
   }
 
-  @media (min-width: 830px) {
+  @media (max-width: 440px) {
     .icon {
-      position: relative;
-      right: 40px;
-      top: 4px;
+      right: 25px;
     }
   }
 `;
@@ -91,22 +96,22 @@ export const SearchEmpty = styled.div`
 export const Search = styled.div`
   display: flex;
   flex-direction: column;
-  position: relative;
-  top: -8px;
-  width: 500px;
-  margin: 0 auto;
+  position: absolute;
+  top: 0px;
+  width: 504px;
+  margin-left: 27px;
   justify-content: center;
   padding-top: 35px;
   background: ${(props) => (props.isEmpty ? "" : "#E7E7E7")};
-  margin-top: ${(props) => (props.isEmpty ? "" : "120px")};
   padding-bottom: ${(props) => (props.isEmpty ? "" : "10px")};
   border-radius: ${(props) => (props.isEmpty ? "0px 0px 8px 8px" : "8px")};
 
   @media (max-width: 829px) {
-    top: 50px;
-    width: 500px;
-    position: absolute;
-    top: -5px;
+    position: fixed;
+    width: 89.5%;
+    top: 80px;
     z-index: 4;
+    margin-left: -26px;
   }
+
 `;

@@ -58,5 +58,4 @@ export default function SearchBar() {
             </S.Search >
         </S.SearchAll>
     )
-
 }

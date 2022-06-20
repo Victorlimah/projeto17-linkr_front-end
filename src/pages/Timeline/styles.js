@@ -44,8 +44,9 @@ export const H2 = styled.div`
   text-align: flex-start;
 
   @media (max-width: 830px) {
-    margin-top: 115px;
-    margin-left: 35px;
+    margin-top: 135px;
+    width: 100%;
+    text-align: center;
     font-family: "Oswald";
     font-style: normal;
     font-weight: 700;
