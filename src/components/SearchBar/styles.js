@@ -30,12 +30,13 @@ export const SearchEmpty = styled.div`
   position: fixed;
 
   .input {
-    width: 500px;
+    width: 494px;
     height: 30px;
     background: #ffffff;
     border-radius: 8px;
     border: 0.1px solid #ffffff;
     position: relative;
+    margin-left: 28px;
   }
 
   input::placeholder {
@@ -91,14 +92,14 @@ export const Search = styled.div`
   display: flex;
   flex-direction: column;
   position: relative;
-  top: -60px;
-  width: 600px;
+  top: -8px;
+  width: 500px;
+  margin: 0 auto;
   justify-content: center;
-  margin-top: 10px;
-  padding-top: 30px;
+  padding-top: 35px;
   background: ${(props) => (props.isEmpty ? "" : "#E7E7E7")};
-  margin-top: ${(props) => (props.isEmpty ? "" : "88px")};
-  padding-bottom: ${(props) => (props.isEmpty ? "" : "23px")};
+  margin-top: ${(props) => (props.isEmpty ? "" : "120px")};
+  padding-bottom: ${(props) => (props.isEmpty ? "" : "10px")};
   border-radius: ${(props) => (props.isEmpty ? "0px 0px 8px 8px" : "8px")};
 
   @media (max-width: 829px) {
