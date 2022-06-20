@@ -2,6 +2,8 @@ import * as S from "./styles";
 import Header from "../../components/Header";
 import NewPost from "../../components/NewPost";
 import Posts from "../../components/Posts";
+import LoadingPage from '../../components/LoadingPage';
+import Trending from "../../components/Trending"
 import { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import DataContext from "../../providers/DataContext";
@@ -23,7 +25,7 @@ export default function Timeline() {
       let user = window.atob(token);
       const { picture, id, username } = JSON.parse(user);
 
-      setData({...data, user:{ id, picture, username }});
+      setData({...data, user:{ id, picture, username }, token: token});
     }, [])
 
     useEffect( async () => {
@@ -59,7 +61,7 @@ export default function Timeline() {
             <S.Container>
                 <S.PostsColumn>
                     <S.Loader>
-                        <h1>Loading</h1>
+                        <LoadingPage />
                     </S.Loader>
                 </S.PostsColumn>    
             </S.Container>
@@ -75,11 +77,16 @@ export default function Timeline() {
               <NewPost publish={publish} setPublish={setPublish} />
               <h5>There are no posts yet</h5>
             </S.PostsColumn>
+            <Trending redirect={(val) => {
+                    val = val.replace("#", "")
+                    navigate(`/hashtag/${val}`)
+            }} />
           </S.Container>
         );
     } else {
         return (
             <S.Container>
+                <S.Wrapper>
                 <S.PostsColumn>
                     <Header picture={data.user.picture} />
                     <S.H2>timeline</S.H2>
@@ -107,7 +114,12 @@ export default function Timeline() {
                                 />
                         )
                     })}
-                </S.PostsColumn>
+                </S.PostsColumn >
+                <Trending redirect={(val) => {
+                    val = val.replace("#", "")
+                    navigate(`/hashtag/${val}`)
+                }} />
+                </S.Wrapper>
             </S.Container>
         )
     }

@@ -4,9 +4,10 @@ export const TrendingContainer = styled.aside`
   width: 301px;
   max-width: 301px;
   height: 406px;
-  margin: 165px 0 0 25px;
+  margin: 0 0 0 25px;
   background-color: #171717;
   border-radius: 16px;
+  margin-top: 60px;
 
   @media (max-width: 800px) {
     display: none;

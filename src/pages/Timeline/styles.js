@@ -2,11 +2,18 @@ import styled from "styled-components";
 
 export const Container = styled.div`
   display: flex;
-  width: 100vw;
-  height: 100%;
   flex-direction: column;
   align-items: center;
+  width: 100vw;
+  min-height: 100vh;
   background-color: #333333;
+`;
+
+export const Wrapper = styled.div`
+  margin-top: 130px;
+  display: flex;
+  justify-content: center;
+  width: 100%;
 `;
 
 export const PostsColumn = styled.div`
@@ -14,6 +21,7 @@ export const PostsColumn = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  position: relative;
 
   h5 {
     margin-top: 50px;
