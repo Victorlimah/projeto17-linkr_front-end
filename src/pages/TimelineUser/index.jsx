@@ -14,11 +14,20 @@ export default function TimelineUser() {
     const [user, setUser] = useState([]);
     const [load, setLoad] = useState(false)
     const [publish, setPublish] = useState(false);
-    const { data } = useContext(DataContext);
+    const { data, setData} = useContext(DataContext);
     const navigate = useNavigate()
     const API = data.API;
 
     const { id } = useParams();
+    
+    useEffect(() => {
+      const token = localStorage.getItem("token").split(".")[1];
+      if (!token) navigate("/signin");
+      let user = window.atob(token);
+      const { picture, id, username } = JSON.parse(user);
+
+      setData({ ...data, user: { id, picture, username }, token: token });
+    }, []);
 
     useEffect(() => {
         let request = null;

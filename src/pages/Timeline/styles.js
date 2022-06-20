@@ -39,7 +39,6 @@ export const PostsColumn = styled.div`
 `;
 
 export const H2 = styled.div`
-  margin-top: 110px;
   margin-left: 0;
   width: 90%;
   height: 49px;
@@ -52,7 +51,6 @@ export const H2 = styled.div`
   text-align: flex-start;
 
   @media (max-width: 830px) {
-    margin-top: 135px;
     width: 100%;
     text-align: center;
     font-family: "Oswald";

@@ -11,7 +11,7 @@ export default function Header({ picture }) {
   return (
     <>
       <S.Header>
-        <S.Title>linkr</S.Title>
+        <S.Title onClick={() => navigate('/timeline')}>linkr</S.Title>
         <SearchBar/>
         <S.User onClick={() => setShow(!show)}>
           {show ? <IoIosArrowUp size={30} /> : <IoIosArrowDown size={30} />}

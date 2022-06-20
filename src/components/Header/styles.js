@@ -23,6 +23,7 @@ export const Title = styled.h1`
   line-height: 54px;
   letter-spacing: 0.05em;
   color: #ffffff;
+  cursor: pointer;  
 `;
 
 export const User = styled.div`
