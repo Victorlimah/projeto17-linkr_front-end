@@ -56,7 +56,7 @@ export const Container = styled.div`
 export const Profile = styled.div`
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: center;  
   cursor: pointer;
   background: #151515;
   border-radius: 0 0 0 30px;

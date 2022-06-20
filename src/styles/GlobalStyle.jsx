@@ -132,11 +132,10 @@ table {
 }
 
  *{
-  /* box-sizing: border-box; */
-  overflow: hidden;
- }
+}
 
-  body{
+body{
+    overflow-x: hidden;
     font-family:  'Passion One', cursive;
   }
   
