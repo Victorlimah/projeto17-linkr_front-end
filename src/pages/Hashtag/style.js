@@ -13,6 +13,7 @@ export const Wrapper = styled.div`
   display: flex;
   justify-content: center;
   width: 100%;
+  margin-top: 150px;
 `;
 
 export const PostsColumn = styled.div`
@@ -27,8 +28,7 @@ export const PostsColumn = styled.div`
 `;
 
 export const H2 = styled.h2`
-  margin-top: 91px;
-  margin-bottom: 25px;
+  margin-bottom: 12px;
   font-family: "Oswald";
   font-style: normal;
   font-weight: bold;

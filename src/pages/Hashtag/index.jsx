@@ -25,7 +25,7 @@ export default function Hashtag() {
     let user = window.atob(token);
     const { picture, id, username } = JSON.parse(user);
 
-    setData({...data, user:{ id, picture, username }});
+    setData({...data, user:{ id, picture, username }, token: token});
     
     redirect(hashtag)
   }, [setPosts, API, ]);
@@ -72,8 +72,9 @@ export default function Hashtag() {
   }
 
   async function redirect(val) {
+    if(val) val = val.replace("#", "");
+    if(!val) val = hashtag
     setLoad(true)
-    val = val.replace("#", "");
     navigate(`/hashtag/${val}`)
     criarPost(val);
     setHashtagTitle(val)

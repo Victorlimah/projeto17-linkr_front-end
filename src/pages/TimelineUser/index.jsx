@@ -1,6 +1,7 @@
 import * as S from "./styles";
 import Header from "../../components/Header";
 import Posts from "../../components/Posts";
+import Trending from "../../components/Trending"
 import { useState, useEffect, useContext } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import DataContext from "../../providers/DataContext";
@@ -50,6 +51,7 @@ export default function TimelineUser() {
                         <LoadingPage />
                     </S.LoaderUser>
                 </S.PostsColumnUser>
+                <Trending />
             </S.ContainerUser>
         )
     } else {
@@ -85,6 +87,10 @@ export default function TimelineUser() {
                             )
                         })}
                 </S.PostsColumnUser>
+                <Trending redirect={(val) => {
+                    val = val.replace("#", "")
+                    navigate(`/hashtag/${val}`)
+                }}/>
             </S.ContainerUser>
         )
     }

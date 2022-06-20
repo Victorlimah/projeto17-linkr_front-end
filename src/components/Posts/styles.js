@@ -332,3 +332,9 @@ export const InputEditing = styled.input`
       margin-top: 11px;
     }
 `
+
+export const LoadingWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`
