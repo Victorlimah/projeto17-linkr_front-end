@@ -49,6 +49,12 @@ export const SearchEmpty = styled.div`
     color: #c6c6c6;
   }
 
+  input:focus {
+    box-shadow: 0 0 0 0;
+    border: 0 none;
+    outline: 0;
+  }
+
   .icon {
     font-size: 28px;
     right: 10px;
