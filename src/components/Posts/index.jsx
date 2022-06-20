@@ -1,9 +1,9 @@
 import * as S from "./styles";
-import { useState, useContext, useEffect } from "react";
+import { useState, useContext, useEffect, useRef } from "react";
 import { useParams } from "react-router-dom";
 import ReactHashtag from "@mdnm/react-hashtag";
-import {AiOutlineHeart} from "react-icons/ai/";
-import {AiFillHeart} from "react-icons/ai/";
+import { AiOutlineHeart } from "react-icons/ai/";
+import { AiFillHeart } from "react-icons/ai/";
 import DataContext from "../../providers/DataContext";
 import axios from "axios";
 import { Tooltip } from "@mui/material";
@@ -19,145 +19,179 @@ export default function Posts(props) {
     const [ likes, setLikes ] = useState(0);
     const [ names, setNames ] = useState([]);
     const [ userId, setUserId ] = useState(0)
+    const [puting, setPuting] = useState(false)
+    const [edit, setEdit] = useState(false);
+    const [editing, setEditing] = useState({ description: "" })
     const [modalIsVisible, setModalVisibility] = useState(false);
     const { data } = useContext(DataContext);
     const API = data.API;
     const username = data.user.username;
+    const inputRef = useRef();
 
-    useEffect(() => {
-      async function checkLiked() {
-        const request = await axios.post(`${API}/checkLiked`, {username, postId});
-        const { data } = request;
-        setLiked(data.liked);
-        setLikes(data.likes);
-        if(data.liked && data.likes === 1) {
-          setNames([{userName:"Você"}]);
-        } else{
-          setNames(data.names);
-        }
-       }
-
-      async function checkUserId() {
-        const request = await axios.get(`${API}/publication/${postId}`)
-        setUserId(request.data.userId)
-      }
-
-      checkUserId()
-      checkLiked();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [])
-
-    function RenderIcons() {
-      if(!userId) return <></>
-      
-      if(data.user.id === userId) {
-        return (
-        <S.IconsContainer>
-          <BsPencilFill className="icone"></BsPencilFill>
-          <RiDeleteBin7Fill className="icone" onClick={openCloseModal}></RiDeleteBin7Fill>
-        </S.IconsContainer>
-        )
-      } else {
-        return (
-          <></>
-        )
-      }
-    }
-
-    async function like() {
-      //TODO: remover o onClick do botão de curtir
-        const request = await axios.post(`${API}/like`, { username, postId });
-        const { data } = request;
-        setLiked(data.liked);
-        setLikes(data.likes);
-        setNames(data.names);
-    }
-
-    async function unlike() {
-      //TODO: remover o onClick do botão de descurtir
-      const request = await axios.post(`${API}/unlike`, { username, postId });
+  useEffect(() => {
+    async function checkLiked() {
+      const request = await axios.post(`${API}/checkLiked`, { username, postId });
       const { data } = request;
       setLiked(data.liked);
       setLikes(data.likes);
-      setNames(data.names);
-    }
-
-    function renderNames(){
-      let text = liked ? "Você" : "Ninguém curtiu ainda";
-      let count = liked ? likes - 1 : likes;
-      
-      if(names.length === 1 && liked)
-        text = `Você e ${names[0].userName}`;
-      else if(names.length === 1 && !liked)
-        text = `${names[0].userName}`;
-      else if(names.length === 2 && liked)
-        text = `Você, ${names[0].userName} e ${names[1].userName}`;
-      else if(names.length === 2 && !liked)
-        text = `${names[0].userName} e ${names[1].userName}`;
-
-      if( count - names.length > 1){
-        text = text.replace(" e", ",");
-        text += ` e outras ${count - names.length} pessoas`;
+      if (data.liked && data.likes === 1) {
+        setNames([{ userName: "Você" }]);
+      } else {
+        setNames(data.names);
       }
-      else if (count - names.length > 0) text += ` e outra pessoa`;
-      
-      return text;
     }
 
-    function openCloseModal() {
-      setModalVisibility(!modalIsVisible);
+    async function checkUserId() {
+      const request = await axios.get(`${API}/publication/${postId}`)
+      setUserId(request.data.userId)
     }
 
-    async function deletePost() {
-      const config = {
-        headers: {
-          userId: data.user.id,
-          publicationId: postId,
-        }
+    checkUserId();
+    checkLiked();
+    inputRef.current?.focus();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [edit])
+
+  function RenderIcons() {
+    if (!userId) return <></>
+
+    if (data.user.id === userId) {
+      //the icons´ css are included into the global css
+      return (
+        <>
+          <BsPencilFill className="pencil-icone" onClick={renderizeInput}></BsPencilFill>
+          <RiDeleteBin7Fill className="trash-icone" onClick={openCloseModal} ></RiDeleteBin7Fill>
+        </>
+      )
+    } else {
+      return (
+        <></>
+      )
+    }
+  }
+
+  async function like() {
+    //TODO: remover o onClick do botão de curtir
+    const request = await axios.post(`${API}/like`, { username, postId });
+    const { data } = request;
+    setLiked(data.liked);
+    setLikes(data.likes);
+    setNames(data.names);
+  }
+
+  async function unlike() {
+    //TODO: remover o onClick do botão de descurtir
+    const request = await axios.post(`${API}/unlike`, { username, postId });
+    const { data } = request;
+    setLiked(data.liked);
+    setLikes(data.likes);
+    setNames(data.names);
+  }
+
+  function renderNames() {
+    let text = liked ? "Você" : "Ninguém curtiu ainda";
+    let count = liked ? likes - 1 : likes;
+
+    if (names.length === 1 && liked)
+      text = `Você e ${names[0].userName}`;
+    else if (names.length === 1 && !liked)
+      text = `${names[0].userName}`;
+    else if (names.length === 2 && liked)
+      text = `Você, ${names[0].userName} e ${names[1].userName}`;
+    else if (names.length === 2 && !liked)
+      text = `${names[0].userName} e ${names[1].userName}`;
+
+    if (count - names.length > 1) {
+      text = text.replace(" e", ",");
+      text += ` e outras ${count - names.length} pessoas`;
+    }
+    else if (count - names.length > 0) text += ` e outra pessoa`;
+
+    return text;
+  }
+
+  function renderizeInput() {
+    setEdit(!edit);
+  }
+
+  async function sendText(e) {
+    const config = {
+      headers: {
+        userId: data.user.id,
+        publicationId: postId,
       }
+    }
+    if (e.key === "Enter" || e.key === 13) {
       try {
-        await axios.delete(`${API}/delete-post`, config)
-        reloadPosts(url.hashtag)
-      } catch(e) {
-        window.alert('Não foi possível excluir o post')
-        openCloseModal()
-        console.log(e, "erro no deletePost")
+        setPuting(true)
+        await axios.put(`${API}/put-post`, editing, config)
+        reloadPosts()
+      } catch (e) {
+        window.alert("An error occured while trying to update the post")
+      }
+    } 
+    // Escape do jeito que está aqui só funciona em alguns navegadores
+    if (e.key === "Escape" || e.key === 27) {
+      setEdit(false)
+      setEditing({...editing, description: ""})
+    }
+  }
+
+  function openCloseModal() {
+    setModalVisibility(!modalIsVisible);
+  }
+
+  async function deletePost() {
+    const config = {
+      headers: {
+        userId: data.user.id,
+        publicationId: postId,
       }
     }
+    try {
+      await axios.delete(`${API}/delete-post`, config)
+      reloadPosts()
+    } catch (e) {
+      window.alert('Não foi possível excluir o post')
+      openCloseModal()
+      console.log(e, "erro no deletePost")
+    }
+  }
 
-    const customStyles = {
-      content: {
-        top: '50%',
-        left: '50%',
-        right: 'auto',
-        bottom: 'auto',
-        marginRight: '-50%',
-        transform: 'translate(-50%, -50%)',
-        height: 'fit-content',
-        width: 'fit-content',
-        borderRadius: '50px',
-        backgroundColor: 'transparent',
-        border: '0'
-      },
-    };
+  const customStyles = {
+    content: {
+      top: '50%',
+      left: '50%',
+      right: 'auto',
+      bottom: 'auto',
+      marginRight: '-50%',
+      transform: 'translate(-50%, -50%)',
+      height: 'fit-content',
+      width: 'fit-content',
+      borderRadius: '50px',
+      backgroundColor: 'transparent',
+      border: '0'
+    },
+  };
 
-    return (
-      <S.Container>
-        <div>
-          <S.UserPicture src={picture} />
-          <Tooltip  title={renderNames()} arrow >
-            <S.LikesContainer
-              onClick={() => (liked ? unlike() : like())}
-              data-tip="tooltip"
-            >
-              {liked ? <AiFillHeart color="#ff0000" /> : <AiOutlineHeart />}
-              <p>{likes} likes</p>
-            </S.LikesContainer>
-          </Tooltip>
-        </div>
-        <RenderIcons />
-        <S.PostBody>
-          <h2>{name}</h2>
+  return (
+    <S.Container>
+      <div>
+        <S.UserPicture src={picture} />
+        <Tooltip title={renderNames()} arrow >
+          <S.LikesContainer
+            onClick={() => (liked ? unlike() : like())}
+            data-tip="tooltip"
+          >
+            {liked ? <AiFillHeart color="#ff0000" /> : <AiOutlineHeart />}
+            <p>{likes} likes</p>
+          </S.LikesContainer>
+        </Tooltip>
+      </div>
+      <RenderIcons />
+      <S.PostBody>
+        <h2>{name}</h2>
+        {!edit ?
           <p>
             <ReactHashtag
               onHashtagClick={(val) => {
@@ -167,17 +201,26 @@ export default function Posts(props) {
               {description}
             </ReactHashtag>
           </p>
-          <a href={link} target={link}>
-            <S.linkCard>
-              <h3>{linkTitle ? linkTitle : "Unknow title"}</h3>
-              <p>{linkDescription}</p>
-              <h4>{link}</h4>
-              <img src={linkPicture ? linkPicture : photo} alt="Banner post" />
-            </S.linkCard>
-          </a>
-        </S.PostBody>
+          :
+          <S.InputEditing
+            required
+            type="text"
+            ref={inputRef}
+            disabled={puting}
+            onKeyPress={(e) => sendText(e)}
+            onChange={(e) => setEditing({ ...editing, description: e.target.value })}>
+          </S.InputEditing>}
+        <a href={link} target={link}>
+          <S.linkCard>
+            <h3>{linkTitle ? linkTitle : "Unknow title"}</h3>
+            <p>{linkDescription}</p>
+            <h4>{link}</h4>
+            <img src={linkPicture ? linkPicture : photo} alt="Banner post" />
+          </S.linkCard>
+        </a>
+      </S.PostBody>
 
-        <Modal
+      <Modal
         isOpen={modalIsVisible}
         onRequestClose={openCloseModal}
         style={customStyles}
@@ -185,18 +228,18 @@ export default function Posts(props) {
         appElement={document.getElementsByClassName('root')}
       >
         <S.ModalContainer>
-        <h2>Are you sure you want to delete this post?</h2>
-        <S.ButtonsContainer>
-          <S.CancelButton onClick={openCloseModal}>
-            <p>No, go back</p>
-          </S.CancelButton>
-          <S.DeleteButton onClick={deletePost}>
-            <p>Yes, delete it</p>
-          </S.DeleteButton>
-        </S.ButtonsContainer>
+          <h2>Are you sure you want to delete this post?</h2>
+          <S.ButtonsContainer>
+            <S.CancelButton onClick={openCloseModal}>
+              <p>No, go back</p>
+            </S.CancelButton>
+            <S.DeleteButton onClick={deletePost}>
+              <p>Yes, delete it</p>
+            </S.DeleteButton>
+          </S.ButtonsContainer>
         </S.ModalContainer>
       </Modal>
-      </S.Container>
-    ); 
+    </S.Container>
+  );
 
 }
