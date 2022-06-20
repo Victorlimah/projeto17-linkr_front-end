@@ -55,9 +55,9 @@ export const SearchEmpty = styled.div`
 
   .icon {
     font-size: 28px;
-    right: 5px;
+    right: 25px;
     top: 6px;
-    position: absolute;
+    position: relative;
     color: #c6c6c6;
   }
 
@@ -66,12 +66,21 @@ export const SearchEmpty = styled.div`
     top: 75px;
     width: 95%;
     left: 0px;
+  
 
     .input {
       width: 95%;
       height: 40px;
       left: 10px;
       right: 10px;
+    }
+  }
+
+  @media (min-width: 830px) {
+    .icon {
+      position: relative;
+      right: 40px;
+      top: 4px;
     }
   }
 `;
