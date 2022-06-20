@@ -37,8 +37,10 @@ export default function TimelineUser() {
 
         request.then(response => {
             const { data } = response;
-            if(data[1]) setPosts(data[1]);
             if(data[0]) setUser(data[0]);
+            if(data[1]) setPosts(data[1]);
+            console.log(data[0])
+            console.log(data[0].username)
             setLoad(true);
         })
         request.catch(warning)
