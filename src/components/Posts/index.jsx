@@ -117,7 +117,7 @@ export default function Posts(props) {
   async function sendText(e) {
     const config = {
       headers: {
-        userId: data.user.id,
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
         publicationId: postId,
       }
     }
@@ -145,16 +145,17 @@ export default function Posts(props) {
     setLoading(!loading)
     const config = {
       headers: {
-        userId: data.user.id,
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
         publicationId: postId,
       }
     }
+
     try {
       await axios.delete(`${API}/delete-post`, config)
       setLoading(!loading)
       reloadPosts()
     } catch (e) {
-      setLoading(!loading)
+      setLoading(false)
       window.alert('Não foi possível excluir o post')
       openCloseModal()
       console.log(e, "erro no deletePost")
