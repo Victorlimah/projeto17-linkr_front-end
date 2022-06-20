@@ -21,15 +21,14 @@ export default function TimelineUser() {
 
     useEffect(() => {
         let request = null;
-
         setLoad(false)
 
         request = axios.get(`${API}/user/${id}`);
 
         request.then(response => {
             const { data } = response;
-            setPosts(data[1]);
-            setUser(data[0]);
+            if(data[1]) setPosts(data[1]);
+            if(data[0]) setUser(data[0]);
             setLoad(true);
         })
         request.catch(warning)
@@ -40,8 +39,8 @@ export default function TimelineUser() {
     }
 
     const tag = posts.length === 0 ? "There are no posts yet" : "";
-    const img = user.length !== 0 ? <img src={user[0].picture} alt="user"></img> : "";
-    const username = user.length !== 0 ? `${user[0].username}'s posts` : "User doesn't exist";
+    const img = user.length !== 0 ? <img src={user.picture} alt="user"></img> : "";
+    const username = user.length !== 0 ? `${user.username}'s posts` : "User doesn't exist";
 
     if (!load) {
         return (
