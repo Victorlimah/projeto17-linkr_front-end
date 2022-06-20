@@ -72,8 +72,9 @@ export default function Hashtag() {
   }
 
   async function redirect(val) {
+    if(val) val = val.replace("#", "");
+    if(!val) val = hashtag
     setLoad(true)
-    val = val.replace("#", "");
     navigate(`/hashtag/${val}`)
     criarPost(val);
     setHashtagTitle(val)

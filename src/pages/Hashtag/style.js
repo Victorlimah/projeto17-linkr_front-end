@@ -10,38 +10,31 @@ export const Container = styled.div`
 `;
 
 export const Wrapper = styled.div`
-  margin-top: 130px;
   display: flex;
   justify-content: center;
   width: 100%;
+  margin-top: 150px;
 `;
 
 export const PostsColumn = styled.div`
   width: 100%;
+  max-width: 611px;
 
-  h5 {
-    margin-top: 50px;
-    font-style: normal;
-    font-weight: 700;
-    font-size: 40px;
-    line-height: 54px;
-    letter-spacing: 0.05em;
-    color: #ffffff;
-  }
-
-  @media (min-width: 768px) {
-    width: 611px;
+  @media (max-width: 800px) {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   }
 `;
 
 export const H2 = styled.h2`
+  margin-bottom: 12px;
   font-family: "Oswald";
   font-style: normal;
   font-weight: bold;
   font-size: 33px;
   line-height: 49px;
   color: #ffffff;
-  margin-bottom: 11px;
 `;
 
 export const Loader = styled.div`
