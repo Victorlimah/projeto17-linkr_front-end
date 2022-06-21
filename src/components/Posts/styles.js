@@ -199,8 +199,9 @@ export const LikesContainer = styled.div`
   flex-direction: column;
   align-items: center;
   position: absolute;
-  left: 22px;
-  top: 72px;
+  width: 87px;
+  left: 0;
+  top: 82px;
   border-radius: 50%;
   margin-right: 10px;
   font-family: 'Lato';
@@ -213,9 +214,73 @@ export const LikesContainer = styled.div`
 color: #FFFFFF;;
 
   svg{
-    width: 40px;
-    height: 40px;
+    width: 30px;
+    height: 30px;
   }
+
+  @media (max-width: 768px) {
+      width: 70px;
+      top: 60px;
+  }
+`;
+
+export const CommentsContainer = styled.div`
+display: flex;
+flex-direction: column;
+width: 87px;
+align-items: center;
+position: absolute;
+left: 0;
+top: 143px;
+border-radius: 50%;
+font-family: 'Lato';
+font-style: normal;
+font-weight: 400;
+font-size: 11px;
+line-height: 13px;
+text-align: center;
+
+color: #FFFFFF;;
+
+svg{
+  width: 30px;
+  height: 30px;
+}
+
+@media (max-width: 768px) {
+  width: 70px;
+  top: 115px;
+}
+`;
+
+export const RepostsContainer = styled.div`
+display: flex;
+flex-direction: column;
+align-items: center;
+position: absolute;
+width: 87px;
+left: 0;
+top: 200px;
+border-radius: 50%;
+margin-right: 10px;
+font-family: 'Lato';
+font-style: normal;
+font-weight: 400;
+font-size: 11px;
+line-height: 13px;
+text-align: center;
+
+color: #FFFFFF;;
+
+svg{
+  width: 30px;
+  height: 30px;
+}
+
+@media (max-width: 768px) {
+  width: 70px;
+  top: 170px;
+}
 
 `;
 

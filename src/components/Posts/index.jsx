@@ -9,6 +9,8 @@ import axios from "axios";
 import { Tooltip } from "@mui/material";
 import { BsPencilFill } from "react-icons/bs";
 import { RiDeleteBin7Fill } from "react-icons/ri";
+import { AiOutlineComment } from "react-icons/ai";
+import { BiRepost } from "react-icons/bi";
 import Modal from 'react-modal';
 
 export default function Posts(props) {
@@ -213,6 +215,14 @@ export default function Posts(props) {
             <p>{likes} likes</p>
           </S.LikesContainer>
         </Tooltip>
+        <S.CommentsContainer>
+          <AiOutlineComment style={{ color: 'white' }}/>
+          <p>27 comments</p>
+        </S.CommentsContainer>
+        <S.RepostsContainer>
+          <BiRepost style={{ color: 'white' }} />
+          <p>8 reposts</p>
+        </S.RepostsContainer>
       </div>
       <RenderIcons />
       <S.PostBody>
