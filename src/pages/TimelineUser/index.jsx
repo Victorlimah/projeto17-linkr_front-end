@@ -31,24 +31,28 @@ export default function TimelineUser() {
     }, []);
 
     useEffect(() => {
-        let request = null;
-        setLoad(false)
-
-        request = axios.get(`${API}/user/${id}`);
-
-        request.then(response => {
-            const { data } = response;
-            if(data[0]) setUser(data[0]);
-            if(data[1]) setPosts(data[1]);
-            console.log(data[0])
-            console.log(data[0].username)
-            setLoad(true);
-        })
-        request.catch(warning)
+      reloadData();       
     }, [publish, id])
 
     function warning() {
         alert("An error occured while trying to fetch the posts, please refresh the page");
+    }
+
+    function reloadData() {
+        let request = null;
+        setLoad(false);
+        setPosts([]);
+        request = axios.get(`${API}/user/${id}`);
+
+        request.then((response) => {
+          const { data } = response;
+          if (data[0]) setUser(data[0]);
+          if (data[1]) setPosts(data[1]);
+          console.log(data[0]);
+          console.log(data[0].username);
+          setLoad(true);
+         });
+         request.catch(warning);
     }
 
     const tag = posts.length === 0 ? "There are no posts yet" : "";
@@ -102,6 +106,7 @@ export default function TimelineUser() {
                             val = val.replace("#", "");
                             navigate(`/hashtag/${val}`);
                           }}
+                          reloadPosts={reloadData}
                         />
                       );
                     })}
