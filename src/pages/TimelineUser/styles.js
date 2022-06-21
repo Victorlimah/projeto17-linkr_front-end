@@ -9,7 +9,7 @@ export const ContainerUser = styled.div`
   align-items: center;
   background-color: #333333;
 
-  @media (max-width: 768px) {
+  @media (max-width: 800px) {
     justify-content: flex-start;
   } 
 `;
@@ -20,7 +20,7 @@ export const Division = styled.div`
   align-items: center;
   justify-content: space-between;
 
-  @media (max-width: 768px) {
+  @media (max-width: 800px) {
     justify-content: center;
     text-align: center;
     margin-top: 100px;
@@ -53,21 +53,22 @@ export const H2User = styled.div`
     line-height: 49px;
     color: #ffffff;
   }
-    @media (max-width: 768px) {
-      margin-top: 150px;
-      
-      div h2{
-        font-size: 25px;
-      }
+  @media (max-width: 800px) {
+    margin-top: 150px;
+    
+    div h2{
+      font-size: 25px;
+    }
   }
-`;
+  `;
 
 export const UserInfo = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
   width: 80vw;
-
+  margin-top: 50px;
+  
   div{
     display: flex;
   }
