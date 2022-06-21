@@ -14,6 +14,7 @@ export default function TimelineUser() {
     const [user, setUser] = useState([]);
     const [load, setLoad] = useState(false)
     const [publish, setPublish] = useState(false);
+    const [following, setFollowing] = useState(false);
     const { data, setData} = useContext(DataContext);
     const navigate = useNavigate()
     const API = data.API;
@@ -56,54 +57,64 @@ export default function TimelineUser() {
 
     if (!load) {
         return (
-            <S.ContainerUser>
-                <S.PostsColumnUser>
-                    <S.LoaderUser>
-                        <LoadingPage />
-                    </S.LoaderUser>
-                </S.PostsColumnUser>
-                <Trending />
-            </S.ContainerUser>
-        )
+          <S.ContainerUser>
+            <S.Division>
+              <S.PostsColumnUser>
+                <S.LoaderUser>
+                  <LoadingPage />
+                </S.LoaderUser>
+              </S.PostsColumnUser>
+            </S.Division>
+            <Trending />
+          </S.ContainerUser>
+        );
     } else {
         return (
+          <>
+            <Header picture={data.user.picture} />
             <S.ContainerUser>
-                <Header picture={data.user.picture} />
-                <S.H2User>
-                    <S.UserInfo>
-                        {img}
-                        <h2>{username}</h2>
-                    </S.UserInfo>
-                </S.H2User>
+              <S.H2User>
+                <S.UserInfo>
+                  <div>
+                    {img} <h2>{username}</h2>
+                  </div>
+                  <S.Follow>{following ? "Seguindo" : "Seguir"}</S.Follow>
+                </S.UserInfo>
+              </S.H2User>
+                <S.Division>
                 <S.PostsColumnUser>
-                    <h5>{tag}</h5>
-                    {posts.length !== 0 &&
-                        posts.map((post, index) => {
-                            return (
-                                <Posts
-                                    postId={post.id}
-                                    key={post.username + post.description + index}
-                                    name={post.username}
-                                    picture={post.picture}
-                                    link={post.link}
-                                    description={post.description}
-                                    linkDescription={post.linkDescription}
-                                    linkTitle={post.linkTitle}
-                                    linkPicture={post.linkPicture}
-                                    originalPost={post.originalPost}
-                                    redirect={(val) => {
-                                        val = val.replace("#", "")
-                                        navigate(`/hashtag/${val}`)
-                                    }}
-                                />
-                            )
-                        })}
+                  <h5>{tag}</h5>
+                  {posts.length !== 0 &&
+                    posts.map((post, index) => {
+                      return (
+                        <Posts
+                          postId={post.id}
+                          key={post.username + post.description + index}
+                          name={post.username}
+                          picture={post.picture}
+                          link={post.link}
+                          description={post.description}
+                          linkDescription={post.linkDescription}
+                          linkTitle={post.linkTitle}
+                          linkPicture={post.linkPicture}
+                          originalPost={post.originalPost}
+                          redirect={(val) => {
+                            val = val.replace("#", "");
+                            navigate(`/hashtag/${val}`);
+                          }}
+                        />
+                      );
+                    })}
                 </S.PostsColumnUser>
-                <Trending redirect={(val) => {
-                    val = val.replace("#", "")
-                    navigate(`/hashtag/${val}`)
-                }}/>
+                <Trending
+                  redirect={(val) => {
+                    val = val.replace("#", "");
+                    navigate(`/hashtag/${val}`);
+                  }}
+                />
+                </S.Division>
             </S.ContainerUser>
-        )
+          </>
+        );
     }
 }
