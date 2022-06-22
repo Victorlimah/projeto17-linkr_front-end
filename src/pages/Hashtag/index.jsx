@@ -56,6 +56,8 @@ export default function Hashtag() {
                   picture={item.picture}
                   link={item.link}
                   description={item.description}
+                  originalPost={item.originalPost}
+                  reposterName={item.reposterName}
                   linkDescription={item.linkDescription}
                   linkTitle={item.linkTitle}
                   linkPicture={item.linkPicture}

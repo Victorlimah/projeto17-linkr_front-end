@@ -103,6 +103,8 @@ export default function Timeline() {
                                 picture={post.picture}
                                 link={post.link}
                                 description={post.description}
+                                originalPost={post.originalPost}
+                                reposterName={post.reposterName}
                                 linkDescription={post.linkDescription}
                                 linkTitle={post.linkTitle}
                                 linkPicture={post.linkPicture}
