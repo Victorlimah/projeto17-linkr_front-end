@@ -232,6 +232,7 @@ export default function Posts(props) {
             required
             type="text"
             ref={inputRef}
+            value={description}
             disabled={puting}
             onKeyPress={(e) => sendText(e)}
             onChange={(e) => setEditing({ ...editing, description: e.target.value })}>
