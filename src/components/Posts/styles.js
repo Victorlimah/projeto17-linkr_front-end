@@ -4,7 +4,7 @@ export const Container = styled.div`
   width: 375px;
   height: 232px;
   position: relative;
-  margin-bottom: 16px;
+  margin-bottom: 70px;
   background: #171717;
   border-radius: 16px;
 
@@ -402,4 +402,52 @@ export const LoadingWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+`
+
+export const repostTagContainer = styled.div`
+  background: #1E1E1E;
+  width: 375px;
+  height: 45px;
+  position: absolute;
+  top: -30px;
+  border-radius: 16px 16px 0 0;
+  color: #FFFFFF;
+
+  svg {
+    position: absolute;
+    left: 10px;
+    top: 3px;
+    height: 25px;
+    width: 25px;
+  }
+  
+  p {
+    position: absolute;
+    left: 40px;
+    top: 8px;
+    font-family: 'Lato';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+  }
+  
+
+  @media (min-width: 768px) {
+    width: 611px;
+  }
+  
+`
+
+export const repostTagContainer2 = styled.div`
+  background: #171717;
+  width: 375px;
+  height: 30px;
+  position: absolute;
+  top: 0;
+  border-radius: 16px;
+
+  @media (min-width: 768px) {
+    width: 611px;
+  }
+  
 `
