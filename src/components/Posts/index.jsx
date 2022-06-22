@@ -12,6 +12,7 @@ import { RiDeleteBin7Fill } from "react-icons/ri";
 import { AiOutlineComment } from "react-icons/ai";
 import { BiRepost } from "react-icons/bi";
 import Modal from 'react-modal';
+import Swal from "sweetalert2";
 
 export default function Posts(props) {
     const { postId, name, picture, link, description, linkDescription, linkTitle, linkPicture, redirect, reloadPosts, originalPost, reposterName } = props;
@@ -31,6 +32,7 @@ export default function Posts(props) {
     const inputRef = useRef();
     
     const [postCount, setPostCount] = useState({likes: 0, reposts: 0, comments: 0});
+    const [comments, setComments] = useState([]);
 
   useEffect(() => {
     getReposts()
@@ -42,11 +44,11 @@ export default function Posts(props) {
       
       const { data } = request;
       setLiked(data.liked);
-      setPostCount({ ...postCount, likes: data.likes})
+      console.log(data)
+      setPostCount({ ...postCount, likes: data.likes, comments: data.comments });
 
       if (data.liked && data.likes === 1) setNames([{ userName: "Você" }]);
-      else setNames(data.names);
-      
+      else setNames(data.names);  
     }
 
     async function checkUserId() {
@@ -293,23 +295,26 @@ export default function Posts(props) {
     }
   }
 
+  function RenderComments(){
+    if (originalPost) return;
+    if(comments.length === 0) Swal.fire("Oh no!", "This post don't have comments!", "error");
+    
+  }
+
   return (
     <S.Container>
       <RenderWhenReposted />
       <div>
         <S.UserPicture src={picture} />
         <Tooltip title={renderNames()} arrow >
-          <S.LikesContainer
-            onClick={() => (liked ? unlike() : like())}
-            data-tip="tooltip"
-          >
+          <S.LikesContainer onClick={() => (liked ? unlike() : like())}>
             {liked ? <AiFillHeart color="#ff0000" /> : <AiOutlineHeart />}
             <p>{postCount.likes} likes</p>
           </S.LikesContainer>
         </Tooltip>
-        <S.CommentsContainer>
+        <S.CommentsContainer onClick={() => RenderComments()}>
           <AiOutlineComment style={{ color: 'white' }}/>
-          <p>27 comments</p>
+          <p>{postCount.comments} comments</p>
         </S.CommentsContainer>
         <S.RepostsContainer onClick={() => {openCloseRepostModal()}}>
           <BiRepost style={{ color: 'white' }} />

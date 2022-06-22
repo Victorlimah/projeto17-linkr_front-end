@@ -448,6 +448,12 @@ export const repostTagContainer2 = styled.div`
 
   @media (min-width: 768px) {
     width: 611px;
-  }
-  
+  } 
 `
+
+export const ContainerComments = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 87px;
+
+`;
