@@ -12,7 +12,6 @@ import { RiDeleteBin7Fill } from "react-icons/ri";
 import { AiOutlineComment } from "react-icons/ai";
 import { BiRepost } from "react-icons/bi";
 import Modal from 'react-modal';
-import Swal from "sweetalert2";
 
 export default function Posts(props) {
     const { postId, name, picture, link, description, linkDescription, linkTitle, linkPicture, redirect, reloadPosts, originalPost, reposterName } = props;
@@ -30,12 +29,12 @@ export default function Posts(props) {
     const API = data.API;
     const username = data.user.username;
     const inputRef = useRef();
-    
+
     const [postCount, setPostCount] = useState({likes: 0, reposts: 0, comments: 0});
     const [comments, setComments] = useState([]);
+    const [showComments, setShowComments] = useState(false);
 
   useEffect(() => {
-    getReposts()
     async function checkLiked() {
       const request = originalPost ?
       await axios.post(`${API}/checkLiked`, { username, postId: originalPost }) 
@@ -44,8 +43,7 @@ export default function Posts(props) {
       
       const { data } = request;
       setLiked(data.liked);
-      console.log(data)
-      setPostCount({ ...postCount, likes: data.likes, comments: data.comments });
+      setPostCount({ ...postCount, likes: data.likes, comments: data.comments, reposts: data.reposts });
 
       if (data.liked && data.likes === 1) setNames([{ userName: "Você" }]);
       else setNames(data.names);  
@@ -60,7 +58,7 @@ export default function Posts(props) {
     checkLiked();
     inputRef.current?.focus();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [edit])
+  }, [])
 
   function RenderIcons() {
     if (!userId) return <></>
@@ -261,22 +259,22 @@ export default function Posts(props) {
     }
   }
 
-  async function getReposts() {
-    const publicationId = originalPost ? originalPost : postId
-    const config = {
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem('token')}`,
-        publicationId: publicationId,
-      }
-    }
+  // async function getReposts() {
+  //   const publicationId = originalPost ? originalPost : postId
+  //   const config = {
+  //     headers: {
+  //       Authorization: `Bearer ${localStorage.getItem('token')}`,
+  //       publicationId: publicationId,
+  //     }
+  //   }
 
-    try {
-      const repostsAmount = await axios.get(`${API}/reposts`, config)
-      setPostCount({...postCount, reposts: repostsAmount.data.quantity})
-    } catch(e) {
-      console.log(e, "erro no getReposts")
-    }
-  }
+  //   try {
+  //     const repostsAmount = await axios.get(`${API}/reposts`, config)
+  //     setPostCount({...postCount, reposts: repostsAmount.data.quantity})
+  //   } catch(e) {
+  //     console.log(e, "erro no getReposts")
+  //   }
+  // }
 
   function RenderWhenReposted() {
     if(originalPost) {
@@ -296,9 +294,46 @@ export default function Posts(props) {
   }
 
   function RenderComments(){
-    if (originalPost) return;
-    if(comments.length === 0) Swal.fire("Oh no!", "This post don't have comments!", "error");
-    
+    if (originalPost) return null;
+    // if(comments.length === 0) Swal.fire("Oh no!", "This post don't have comments!", "error");
+
+    return (
+      <>
+        <MakeComment/>
+      </>
+    );
+  }
+
+  function CommentFactory(picture, name, text) {
+    //TODO: CommentsDetails pode ser sobre o autor ou quem eu sigo
+
+    return (
+      <S.ContainerComments>
+        <S.Comment>
+          <img src={data.user.picture} alt="avatar" />
+          <S.CommentsBody>
+            <S.CommentsHeader>
+              <S.CommentsName>{"Nome"}</S.CommentsName>
+              <S.CommentsDetails>{"* following"}</S.CommentsDetails>
+            </S.CommentsHeader>
+            <S.CommentsText>{"Comentário"}</S.CommentsText>
+          </S.CommentsBody>
+        </S.Comment>
+      </S.ContainerComments>
+    );
+  }
+
+  function MakeComment(){
+    return (
+      <S.ContainerComments>
+        <S.Comment>
+          <img src={data.user.picture} alt="avatar" />
+          <S.CommentsBody>
+           <input type="text" placeholder="Write a comment..." />
+          </S.CommentsBody>
+        </S.Comment>
+      </S.ContainerComments>
+    );
   }
 
   return (
@@ -312,7 +347,7 @@ export default function Posts(props) {
             <p>{postCount.likes} likes</p>
           </S.LikesContainer>
         </Tooltip>
-        <S.CommentsContainer onClick={() => RenderComments()}>
+        <S.CommentsContainer onClick={() => setShowComments(!showComments)}>
           <AiOutlineComment style={{ color: 'white' }}/>
           <p>{postCount.comments} comments</p>
         </S.CommentsContainer>
@@ -321,6 +356,7 @@ export default function Posts(props) {
           <p>{postCount.reposts} reposts</p>
         </S.RepostsContainer>
       </div>
+      {showComments ? <RenderComments /> : <></>}
       <RenderIcons />
       <S.PostBody>
         <h2>{name}</h2>

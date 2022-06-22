@@ -14,7 +14,7 @@ export const Container = styled.div`
     background: #171717;
     border-radius: 16px;
   }
-`
+`;
 
 export const UserPicture = styled.img`
   position: absolute;
@@ -45,22 +45,22 @@ export const PostBody = styled.div`
 
   h2 {
     margin-top: 10px;
-    font-family: 'Lato';
+    font-family: "Lato";
     font-style: normal;
     font-weight: 400;
     font-size: 17px;
     line-height: 20px;
-    color: #FFFFFF;
-  } 
+    color: #ffffff;
+  }
 
-  p {    
+  p {
     margin-top: 7px;
-    font-family: 'Lato';
+    font-family: "Lato";
     font-style: normal;
     font-weight: 400;
     font-size: 15px;
     line-height: 18px;
-    color: #B7B7B7;
+    color: #b7b7b7;
   }
 
   a {
@@ -72,22 +72,22 @@ export const PostBody = styled.div`
     margin-left: 18px;
 
     h2 {
-        font-family: 'Lato';
-        font-style: normal;
-        font-weight: 400;
-        font-size: 19px;
-        line-height: 23px;
-        color: #FFFFFF;
-        margin-top: 19px;
+      font-family: "Lato";
+      font-style: normal;
+      font-weight: 400;
+      font-size: 19px;
+      line-height: 23px;
+      color: #ffffff;
+      margin-top: 19px;
     }
   }
-`
+`;
 
 export const linkCard = styled.div`
   width: 278px;
   height: 115px;
   margin-top: 13px;
-  border: 1px solid #4D4D4D;
+  border: 1px solid #4d4d4d;
   border-radius: 11px;
   display: flex;
   flex-direction: column;
@@ -97,36 +97,36 @@ export const linkCard = styled.div`
     width: 165px;
     margin-top: 7px;
     margin-left: 11px;
-    font-family: 'Lato';
+    font-family: "Lato";
     font-style: normal;
     font-weight: 400;
     font-size: 11px;
     line-height: 11px;
-    color: #CECECE;
+    color: #cecece;
   }
 
   p {
     width: 165px;
     margin-top: 4px;
     margin-left: 11px;
-    font-family: 'Lato';
+    font-family: "Lato";
     font-style: normal;
     font-weight: 400;
     font-size: 9px;
     line-height: 9px;
-    color: #9B9595;
+    color: #9b9595;
   }
 
   h4 {
     width: 155px;
     margin-top: 4px;
     margin-left: 11px;
-    font-family: 'Lato';
+    font-family: "Lato";
     font-style: normal;
     font-weight: 400;
     font-size: 9px;
     line-height: 9px;
-    color: #CECECE;
+    color: #cecece;
   }
 
   img {
@@ -143,7 +143,7 @@ export const linkCard = styled.div`
   @media (min-width: 768px) {
     width: 503px;
     height: 155px;
-    border: 1px solid #4D4D4D;
+    border: 1px solid #4d4d4d;
     border-radius: 11px;
 
     img {
@@ -155,43 +155,43 @@ export const linkCard = styled.div`
       width: 302px;
       margin-top: 22px;
       margin-left: 20px;
-      font-family: 'Lato';
+      font-family: "Lato";
       font-style: normal;
       font-weight: 400;
       font-size: 16px;
       line-height: 17px;
-      color: #CECECE;
+      color: #cecece;
     }
-  
+
     p {
       width: 302px;
       margin-top: 5px;
       margin-left: 20px;
-      font-family: 'Lato';
+      font-family: "Lato";
       font-style: normal;
       font-weight: 400;
       font-size: 11px;
       line-height: 12px;
-      color: #9B9595;
+      color: #9b9595;
     }
-  
+
     h4 {
       width: 302px;
       margin-top: 13px;
       margin-left: 20px;
-      font-family: 'Lato';
+      font-family: "Lato";
       font-style: normal;
       font-weight: 400;
       font-size: 11px;
       line-height: 12px;
-      color: #CECECE;
+      color: #cecece;
     }
   }
-`
+`;
 
 export const Hashtag = styled.span`
   font-weight: bold;
-  color: #FFFFFF;
+  color: #ffffff;
 `;
 
 export const LikesContainer = styled.div`
@@ -204,84 +204,83 @@ export const LikesContainer = styled.div`
   top: 82px;
   border-radius: 50%;
   margin-right: 10px;
-  font-family: 'Lato';
+  font-family: "Lato";
   font-style: normal;
   font-weight: 400;
   font-size: 11px;
   line-height: 13px;
   text-align: center;
 
-color: #FFFFFF;;
+  color: #ffffff;
 
-  svg{
+  svg {
     width: 30px;
     height: 30px;
   }
 
   @media (max-width: 768px) {
-      width: 70px;
-      top: 60px;
+    width: 70px;
+    top: 60px;
   }
 `;
 
 export const CommentsContainer = styled.div`
-display: flex;
-flex-direction: column;
-width: 87px;
-align-items: center;
-position: absolute;
-left: 0;
-top: 143px;
-border-radius: 50%;
-font-family: 'Lato';
-font-style: normal;
-font-weight: 400;
-font-size: 11px;
-line-height: 13px;
-text-align: center;
+  display: flex;
+  flex-direction: column;
+  width: 87px;
+  align-items: center;
+  position: absolute;
+  left: 0;
+  top: 143px;
+  border-radius: 50%;
+  font-family: "Lato";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 11px;
+  line-height: 13px;
+  text-align: center;
 
-color: #FFFFFF;;
+  color: #ffffff;
 
-svg{
-  width: 30px;
-  height: 30px;
-}
+  svg {
+    width: 30px;
+    height: 30px;
+  }
 
-@media (max-width: 768px) {
-  width: 70px;
-  top: 115px;
-}
+  @media (max-width: 768px) {
+    width: 70px;
+    top: 115px;
+  }
 `;
 
 export const RepostsContainer = styled.div`
-display: flex;
-flex-direction: column;
-align-items: center;
-position: absolute;
-width: 87px;
-left: 0;
-top: 200px;
-border-radius: 50%;
-margin-right: 10px;
-font-family: 'Lato';
-font-style: normal;
-font-weight: 400;
-font-size: 11px;
-line-height: 13px;
-text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: absolute;
+  width: 87px;
+  left: 0;
+  top: 200px;
+  border-radius: 50%;
+  margin-right: 10px;
+  font-family: "Lato";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 11px;
+  line-height: 13px;
+  text-align: center;
 
-color: #FFFFFF;;
+  color: #ffffff;
 
-svg{
-  width: 30px;
-  height: 30px;
-}
+  svg {
+    width: 30px;
+    height: 30px;
+  }
 
-@media (max-width: 768px) {
-  width: 70px;
-  top: 170px;
-}
-
+  @media (max-width: 768px) {
+    width: 70px;
+    top: 170px;
+  }
 `;
 
 export const PencilIcone = styled.div`
@@ -293,12 +292,11 @@ export const PencilIcone = styled.div`
     position: absolute;
     top: 23px;
     right: 48.5px;
-    color: #FFFFFF;
+    color: #ffffff;
     width: 20px;
     height: 20px;
   }
-
-`
+`;
 
 export const TrashIcone = styled.div`
   position: absolute;
@@ -309,11 +307,11 @@ export const TrashIcone = styled.div`
     position: absolute;
     top: 23px;
     right: 22px;
-    color: #FFFFFF;
+    color: #ffffff;
     width: 20px;
     height: 20px;
   }
-`
+`;
 
 export const ModalContainer = styled.div`
   width: 597px;
@@ -327,91 +325,91 @@ export const ModalContainer = styled.div`
 
   h2 {
     width: 338px;
-    font-family: 'Lato';
+    font-family: "Lato";
     font-style: normal;
     font-weight: 700;
     font-size: 34px;
     line-height: 41px;
     text-align: center;
-    color: #FFFFFF;
+    color: #ffffff;
     margin-bottom: 40px;
   }
-`
+`;
 
 export const ButtonsContainer = styled.div`
   display: flex;
-`
+`;
 
 export const CancelButton = styled.button`
   width: 134px;
   height: 37px;
-  background: #FFFFFF;
+  background: #ffffff;
   border-radius: 5px;
   margin-right: 10px;
   border: 0;
 
   p {
-    font-family: 'Lato';
+    font-family: "Lato";
     font-style: normal;
     font-weight: 700;
     font-size: 18px;
     line-height: 22px;
-    color: #1877F2;
+    color: #1877f2;
   }
-`
+`;
 
 export const DeleteButton = styled.button`
   width: 134px;
   height: 37px;
-  background: #1877F2;
+  background: #1877f2;
   border-radius: 5px;
   margin-left: 10px;
   border: 0;
 
   p {
-    font-family: 'Lato';
+    font-family: "Lato";
     font-style: normal;
     font-weight: 700;
     font-size: 18px;
     line-height: 22px;
-    color: #FFFFFF;
+    color: #ffffff;
   }
-`
+`;
 
 export const InputEditing = styled.input`
   width: 278px;
   height: 20px;
-  background: #FFFFFF;
+  background: #ffffff;
   border-radius: 5px;
-  border: 0.1px solid #FFFFFF;
+  border: 0.1px solid #ffffff;
   padding-left: 11px;
   margin-top: 17px;
 
   @media (min-width: 768px) {
-      width: 490px;
-      height: 35px;
-      left: 86px;
-      top: 56px;
-      background: #FFFFFF;
-      border-radius: 5px;
-      margin-top: 11px;
-    }
-`
+    width: 490px;
+    height: 35px;
+    left: 86px;
+    top: 56px;
+    background: #ffffff;
+    border-radius: 5px;
+    margin-top: 11px;
+  }
+`;
 
 export const LoadingWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-`
+`;
 
 export const repostTagContainer = styled.div`
-  background: #1E1E1E;
+  background: #1e1e1e;
   width: 375px;
   height: 45px;
   position: absolute;
   top: -30px;
   border-radius: 16px 16px 0 0;
-  color: #FFFFFF;
+  color: #ffffff;
 
   svg {
     position: absolute;
@@ -420,23 +418,21 @@ export const repostTagContainer = styled.div`
     height: 25px;
     width: 25px;
   }
-  
+
   p {
     position: absolute;
     left: 40px;
     top: 8px;
-    font-family: 'Lato';
+    font-family: "Lato";
     font-style: normal;
     font-weight: 400;
     font-size: 12px;
   }
-  
 
   @media (min-width: 768px) {
     width: 611px;
   }
-  
-`
+`;
 
 export const repostTagContainer2 = styled.div`
   background: #171717;
@@ -448,12 +444,94 @@ export const repostTagContainer2 = styled.div`
 
   @media (min-width: 768px) {
     width: 611px;
-  } 
-`
+  }
+`;
 
 export const ContainerComments = styled.div`
   display: flex;
   flex-direction: column;
-  width: 87px;
+  align-items: center;
+  justify-content: center;
+  width: 375px;
+  height: 45px;
+  position: absolute;
+  bottom: -30px;
+  color: #ffffff;
+  background-color: #1e1e1e;
 
+  @media (min-width: 768px) {
+    width: 611px;
+  }
 `;
+
+export const Comment = styled.div`
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  width: 100%;
+
+  img{
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    margin: 0 37px;
+  }
+  `;
+
+export const CommentsBody = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 80%;
+  height: 45px;
+  border-radius: 16px 16px 0 0;
+  color: #ffffff;
+
+  input{
+    width: 100%;
+    padding: 5px;
+    border-radius: 5px;
+    border: none;
+  }
+`;
+
+export const CommentsHeader = styled.div`
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 20px;
+  border-radius: 16px 16px 0 0;
+`;
+
+export const CommentsName = styled.h3`
+  font-family: "Lato";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 17px;
+  color: #f3f3f3;
+`;
+
+export const CommentsDetails = styled.p`
+  font-family: "Lato";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+  color: #565656;
+  margin-left: 10px;
+`;
+
+export const CommentsText = styled.p`
+font-family: 'Lato';
+font-style: normal;
+font-weight: 400;
+font-size: 14px;
+line-height: 17px;
+color: #ACACAC;
+width: 100%;
+`;
+
+
+
