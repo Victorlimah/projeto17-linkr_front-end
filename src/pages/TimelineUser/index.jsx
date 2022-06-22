@@ -91,6 +91,7 @@ export default function TimelineUser() {
                                     linkTitle={post.linkTitle}
                                     linkPicture={post.linkPicture}
                                     originalPost={post.originalPost}
+                                    reposterName={post.reposterName}
                                     redirect={(val) => {
                                         val = val.replace("#", "")
                                         navigate(`/hashtag/${val}`)
