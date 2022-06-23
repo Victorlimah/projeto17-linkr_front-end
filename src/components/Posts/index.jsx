@@ -284,35 +284,32 @@ export default function Posts(props) {
 
     return (
       <>
-        {comments.map(({userName, picture, comment}, index) => {
+        {comments.map(({ userName, picture, comment }, index) => {
           //TODO: Se eu seguir ele, aparecer o nome following no details
-          const details =
-            name === userName ?
-            "• post’s author"
-            : "";
+          const details = name === userName ? "• post’s author" : "";
 
-              return (
-                <S.ContainerComments3 key={index}>
-                  <S.Comment>
-                    <img src={picture} alt="avatar" />
-                    <S.CommentsBody>
-                      <S.CommentsHeader>
-                        <S.CommentsName>{userName}</S.CommentsName>
-                        <S.CommentsDetails>{details}</S.CommentsDetails>
-                      </S.CommentsHeader>
-                      <S.CommentsText>{comment}</S.CommentsText>
-                    </S.CommentsBody>
-                  </S.Comment>
-                </S.ContainerComments3>
-              );
+          return (
+            <S.ContainerComments3 key={index}>
+              <S.Comment>
+                <img src={picture} alt="avatar" />
+                <S.CommentsBody>
+                  <S.CommentsHeader>
+                    <S.CommentsName>{userName}</S.CommentsName>
+                    <S.CommentsDetails>{details}</S.CommentsDetails>
+                  </S.CommentsHeader>
+                  <S.CommentsText>{comment}</S.CommentsText>
+                </S.CommentsBody>
+              </S.Comment>
+            </S.ContainerComments3>
+          );
         })}
-        <MakeComment />
+       <MakeComment />
       </>
     );
   }
 
   function MakeComment(){
-    return (
+     return (
       <S.ContainerComments2>
         <S.ContainerComments>
           <S.Comment>
@@ -320,17 +317,31 @@ export default function Posts(props) {
             <S.CommentsBody>
               <input
                 type="text"
+                autoFocus={true}
                 placeholder="Write a comment..."
-                //TODO: Essa desgraça ta tirando o foco do input
                 value={editing.comment}
-                onChange={(e) => setEditing({...editing, comment: e.target.value})}
+                onChange={(e) =>
+                  setEditing({ ...editing, comment: e.target.value })
+                }
               />
               <FiSend onClick={() => postComment()} />
             </S.CommentsBody>
           </S.Comment>
         </S.ContainerComments>
       </S.ContainerComments2>
-    );
+     );
+   }
+
+  function teste(){
+return (
+  <input
+    type="text"
+    placeholder="Write a comment..."
+    //TODO: Essa desgraça ta tirando o foco do input
+    value={editing.comment}
+    onChange={(e) => setEditing({ ...editing, comment: e.target.value })}
+  />
+);
   }
 
   async function postComment() {
