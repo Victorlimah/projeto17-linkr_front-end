@@ -10,6 +10,7 @@ import { Tooltip } from "@mui/material";
 import { BsPencilFill } from "react-icons/bs";
 import { RiDeleteBin7Fill } from "react-icons/ri";
 import { AiOutlineComment } from "react-icons/ai";
+import { FiSend } from "react-icons/fi";
 import { BiRepost } from "react-icons/bi";
 import Modal from 'react-modal';
 
@@ -299,7 +300,9 @@ export default function Posts(props) {
 
     return (
       <>
-        <MakeComment/>
+        <CommentFactory />
+        <CommentFactory />
+        <MakeComment />
       </>
     );
   }
@@ -308,7 +311,7 @@ export default function Posts(props) {
     //TODO: CommentsDetails pode ser sobre o autor ou quem eu sigo
 
     return (
-      <S.ContainerComments>
+      <S.ContainerComments3>
         <S.Comment>
           <img src={data.user.picture} alt="avatar" />
           <S.CommentsBody>
@@ -319,25 +322,32 @@ export default function Posts(props) {
             <S.CommentsText>{"Comentário"}</S.CommentsText>
           </S.CommentsBody>
         </S.Comment>
-      </S.ContainerComments>
+      </S.ContainerComments3>
     );
   }
 
   function MakeComment(){
     return (
-      <S.ContainerComments>
-        <S.Comment>
-          <img src={data.user.picture} alt="avatar" />
-          <S.CommentsBody>
-           <input type="text" placeholder="Write a comment..." />
-          </S.CommentsBody>
-        </S.Comment>
-      </S.ContainerComments>
+      <S.ContainerComments2>
+        <S.ContainerComments>
+          <S.Comment>
+            <img src={data.user.picture} alt="avatar" />
+            <S.CommentsBody>
+              <input type="text" placeholder="Write a comment..." />
+              <FiSend onClick={() => postComment()} />
+            </S.CommentsBody>
+          </S.Comment>
+        </S.ContainerComments>
+      </S.ContainerComments2>
     );
   }
 
+  async function postComment() {
+    alert("Comentário enviado!")
+  }
+
   return (
-    <S.Container>
+    <S.Container comment={showComments} comments={postCount.comments} >
       <RenderWhenReposted />
       <div>
         <S.UserPicture src={picture} />

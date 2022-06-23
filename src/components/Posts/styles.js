@@ -4,15 +4,15 @@ export const Container = styled.div`
   width: 375px;
   height: 232px;
   position: relative;
-  margin-bottom: 70px;
   background: #171717;
-  border-radius: 16px;
+  border-radius: ${(props) => (props.comment ? "16px 16px 0 0" : "16px")};
+  margin-bottom: ${(props) => (props.comment ? "200px" : "70px")};
 
   @media (min-width: 768px) {
     width: 611px;
     height: 276px;
     background: #171717;
-    border-radius: 16px;
+    border-radius: ${(props) => (props.comment ? "16px 16px 0 0" : "16px")};
   }
 `;
 
@@ -42,6 +42,8 @@ export const PostBody = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: left;
+  position: absolute;
+  top: 0;
 
   h2 {
     margin-top: 10px;
@@ -447,17 +449,40 @@ export const repostTagContainer2 = styled.div`
   }
 `;
 
+export const ContainerComments2 = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
+export const ContainerComments3 = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 375px;
+  position: relative;
+  bottom: -273px;
+  color: #ffffff;
+  background-color: #1e1e1e;
+  border-bottom: 1px solid #353535;
+
+  @media (min-width: 768px) {
+    width: 611px;
+  }
+`;
+
 export const ContainerComments = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   width: 375px;
-  height: 45px;
-  position: absolute;
-  bottom: -30px;
+  position: relative;
+  bottom: -273px;
   color: #ffffff;
   background-color: #1e1e1e;
+  border-radius: 0 0 16px 16px;
 
   @media (min-width: 768px) {
     width: 611px;
@@ -469,14 +494,15 @@ export const Comment = styled.div`
   justify-content: left;
   align-items: center;
   width: 100%;
+  padding: 7px 0;
 
-  img{
-    width: 30px;
-    height: 30px;
+  img {
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
-    margin: 0 37px;
+    margin: 0 25px;
   }
-  `;
+`;
 
 export const CommentsBody = styled.div`
   display: flex;
@@ -485,14 +511,40 @@ export const CommentsBody = styled.div`
   justify-content: center;
   width: 80%;
   height: 45px;
-  border-radius: 16px 16px 0 0;
+  border-radius: 16px;
   color: #ffffff;
 
-  input{
+  input {
     width: 100%;
     padding: 5px;
-    border-radius: 5px;
+    border-radius: 8px;
     border: none;
+    background-color: #252525;
+    font-family: "Lato";
+    font-style: italic;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 17px;
+    letter-spacing: 0.05em;
+    color: #e5e5e5;
+    padding: 10px;
+  }
+
+  input::placeholder {
+    color: #575757;
+  }
+
+  input:focus {
+    outline: none;
+  }
+
+  svg {
+    position: absolute;
+    right: 7%;
+  }
+
+  @media (max-width: 768px) {
+    width: 70%;
   }
 `;
 
