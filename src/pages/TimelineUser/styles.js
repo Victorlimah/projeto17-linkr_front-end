@@ -110,12 +110,23 @@ export const LoaderUser = styled.div`
   }
 `;
 
-export const Follow = styled.div`
-  display: flex;
+export const Follow = styled.button`
+  display: ${(props) => (props.isUser ? "none" : "flex")};
   justify-content: center;
   align-items: center;
   color: ${(props) => (props.following ? "#1877F2" : "#ffffff")};
   background-color: ${(props) => (props.following ? "#ffffff" : "#1877F2")};
   padding: 8px 12px;
   border-radius: 5px;
+  border: none;
+
+  .follow-selected{
+  background: #FFFFFF;
+  color: #1877F2;
+  }
+
+  .follow-not-selected{
+  background: #1877F2;
+  color: #FFFFFF;
+  }
 `;

@@ -14,6 +14,7 @@ export default function TimelineUser() {
     const [user, setUser] = useState([]);
     const [load, setLoad] = useState(false)
     const [publish, setPublish] = useState(false);
+    const [disabled, setDisabled] = useState(false);
     const [following, setFollowing] = useState(false);
     const { data, setData } = useContext(DataContext);
     const navigate = useNavigate()
@@ -32,7 +33,6 @@ export default function TimelineUser() {
 
     useEffect(() => {
         reloadData();
-        verifyFollower();
     }, [publish, id])
 
     function warning() {
@@ -56,6 +56,8 @@ export default function TimelineUser() {
             setLoad(true);
         });
         request.catch(warning);
+
+        verifyFollower();
     }
 
     function verifyFollower() {
@@ -70,6 +72,18 @@ export default function TimelineUser() {
             });
             request.catch(warningFollow);
         }
+    }
+
+    function followingUser() {
+        setDisabled(true);
+        let request = null;
+        request = axios.post(`${API}/follow-user`, { following: id, follower: data.user.id });
+        request.then((response) => {
+            const { data } = response;
+            if (data) setFollowing(!following);
+            setDisabled(false);
+        });
+        request.catch(warningFollow);
     }
 
     const tag = posts.length === 0 ? "There are no posts yet" : "";
@@ -99,7 +113,15 @@ export default function TimelineUser() {
                             <div>
                                 {img} <h2>{username}</h2>
                             </div>
-                            <S.Follow following={following} isUser={Number(id) === data.user.id}>{following ? "Unfollow" : "Follow"}</S.Follow>
+                            {following ? <S.Follow following={following} className="follow-not-selected"
+                                isUser={Number(id) === data.user.id} disabled={disabled}
+                                onClick={() => {
+                                    followingUser();
+                                }}>Unfollow</S.Follow> : <S.Follow following={following} className="follow-selected"
+                                    isUser={Number(id) === data.user.id} disabled={disabled}
+                                    onClick={() => {
+                                        followingUser();
+                                    }}>Follow</S.Follow>}
                         </S.UserInfo>
                     </S.H2User>
                     <S.Division>
