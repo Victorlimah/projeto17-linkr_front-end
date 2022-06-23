@@ -319,7 +319,6 @@ export default function Posts(props) {
                 type="text"
                 autoFocus={true}
                 placeholder="Write a comment..."
-                //TODO: Essa desgraça ta tirando o foco do input
                 value={editing.comment}
                 onChange={(e) =>
                   setEditing({ ...editing, comment: e.target.value })
