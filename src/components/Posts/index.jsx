@@ -23,7 +23,7 @@ export default function Posts(props) {
     const [puting, setPuting] = useState(false)
     const [edit, setEdit] = useState(false);
     const [loading, setLoading] = useState(false)
-    const [editing, setEditing] = useState({ description: "" })
+    const [editing, setEditing] = useState({ description: "", comment:"" })
     const [modalIsVisible, setModalVisibility] = useState(false);
     const [repostModalIsVisible, setRepostModalVisibility] = useState(false);
     const { data } = useContext(DataContext);
@@ -45,6 +45,7 @@ export default function Posts(props) {
       const { data } = request;
       setLiked(data.liked);
       setPostCount({ ...postCount, likes: data.likes, comments: data.comments, reposts: data.reposts });
+      setComments(data.listComments);
 
       if (data.liked && data.likes === 1) setNames([{ userName: "Você" }]);
       else setNames(data.names);  
@@ -260,23 +261,6 @@ export default function Posts(props) {
     }
   }
 
-  // async function getReposts() {
-  //   const publicationId = originalPost ? originalPost : postId
-  //   const config = {
-  //     headers: {
-  //       Authorization: `Bearer ${localStorage.getItem('token')}`,
-  //       publicationId: publicationId,
-  //     }
-  //   }
-
-  //   try {
-  //     const repostsAmount = await axios.get(`${API}/reposts`, config)
-  //     setPostCount({...postCount, reposts: repostsAmount.data.quantity})
-  //   } catch(e) {
-  //     console.log(e, "erro no getReposts")
-  //   }
-  // }
-
   function RenderWhenReposted() {
     if(originalPost) {
       return (
@@ -300,29 +284,30 @@ export default function Posts(props) {
 
     return (
       <>
-        <CommentFactory />
-        <CommentFactory />
+        {comments.map(({userName, picture, comment}, index) => {
+          //TODO: Se eu seguir ele, aparecer o nome following no details
+          const details =
+            name === userName ?
+            "• post’s author"
+            : "";
+
+              return (
+                <S.ContainerComments3 key={index}>
+                  <S.Comment>
+                    <img src={picture} alt="avatar" />
+                    <S.CommentsBody>
+                      <S.CommentsHeader>
+                        <S.CommentsName>{userName}</S.CommentsName>
+                        <S.CommentsDetails>{details}</S.CommentsDetails>
+                      </S.CommentsHeader>
+                      <S.CommentsText>{comment}</S.CommentsText>
+                    </S.CommentsBody>
+                  </S.Comment>
+                </S.ContainerComments3>
+              );
+        })}
         <MakeComment />
       </>
-    );
-  }
-
-  function CommentFactory(picture, name, text) {
-    //TODO: CommentsDetails pode ser sobre o autor ou quem eu sigo
-
-    return (
-      <S.ContainerComments3>
-        <S.Comment>
-          <img src={data.user.picture} alt="avatar" />
-          <S.CommentsBody>
-            <S.CommentsHeader>
-              <S.CommentsName>{"Nome"}</S.CommentsName>
-              <S.CommentsDetails>{"* following"}</S.CommentsDetails>
-            </S.CommentsHeader>
-            <S.CommentsText>{"Comentário"}</S.CommentsText>
-          </S.CommentsBody>
-        </S.Comment>
-      </S.ContainerComments3>
     );
   }
 
@@ -333,7 +318,13 @@ export default function Posts(props) {
           <S.Comment>
             <img src={data.user.picture} alt="avatar" />
             <S.CommentsBody>
-              <input type="text" placeholder="Write a comment..." />
+              <input
+                type="text"
+                placeholder="Write a comment..."
+                //TODO: Essa desgraça ta tirando o foco do input
+                value={editing.comment}
+                onChange={(e) => setEditing({...editing, comment: e.target.value})}
+              />
               <FiSend onClick={() => postComment()} />
             </S.CommentsBody>
           </S.Comment>
@@ -343,7 +334,18 @@ export default function Posts(props) {
   }
 
   async function postComment() {
-    alert("Comentário enviado!")
+    const config = {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    };
+    const body = { postId, username: data.user.username, comment: editing.comment };
+    try {
+      await axios.post(`${API}/comment`, body);
+      reloadPosts();
+    } catch (e) {
+      console.log(e, "erro no postComment");
+    }
   }
 
   return (
@@ -372,11 +374,7 @@ export default function Posts(props) {
         <h2>{name}</h2>
         {!edit ?
           <p>
-            <ReactHashtag
-              onHashtagClick={(val) => {
-                redirect(val);
-              }}
-            >
+            <ReactHashtag onHashtagClick={(val) => redirect(val)}>
               {description}
             </ReactHashtag>
           </p>

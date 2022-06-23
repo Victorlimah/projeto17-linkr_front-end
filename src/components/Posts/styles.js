@@ -6,7 +6,7 @@ export const Container = styled.div`
   position: relative;
   background: #171717;
   border-radius: ${(props) => (props.comment ? "16px 16px 0 0" : "16px")};
-  margin-bottom: ${(props) => (props.comment ? "200px" : "70px")};
+  margin-bottom: ${(props) => (props.comment ? `${props.comments*50+120}px` : "70px")};
 
   @media (min-width: 768px) {
     width: 611px;
@@ -492,10 +492,9 @@ export const ContainerComments = styled.div`
     width: 611px;
   }
 
-   @media (max-width: 768px) {
+  @media (max-width: 768px) {
     bottom: -220px;
   }
-  
 `;
 
 export const Comment = styled.div`
