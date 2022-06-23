@@ -470,6 +470,10 @@ export const ContainerComments3 = styled.div`
   @media (min-width: 768px) {
     width: 611px;
   }
+
+  @media (max-width: 768px) {
+    bottom: -220px;
+  }
 `;
 
 export const ContainerComments = styled.div`
@@ -487,6 +491,11 @@ export const ContainerComments = styled.div`
   @media (min-width: 768px) {
     width: 611px;
   }
+
+   @media (max-width: 768px) {
+    bottom: -220px;
+  }
+  
 `;
 
 export const Comment = styled.div`
