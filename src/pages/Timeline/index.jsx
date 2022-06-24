@@ -88,25 +88,7 @@ export default function Timeline() {
                 }} />
             </S.Container>
         );
-    } //else if (posts.length === 0) {
-    //     return (
-    //         <S.Container>
-    //             <S.PostsColumn>
-    //                 <Header picture={data.user.picture} />
-    //                 <S.H2>
-    //                     <h2>timeline</h2>
-    //                 </S.H2>
-    //                 <NewPost publish={publish} setPublish={setPublish} />
-    //                 <h5>There are no posts yet</h5>
-    //             </S.PostsColumn>
-    //             <Trending redirect={(val) => {
-    //                 val = val.replace("#", "")
-    //                 navigate(`/hashtag/${val}`)
-    //             }} />
-    //         </S.Container>
-    //     );
-    // } 
-    else if (posts.length !== 0) {
+    } else if (posts.length !== 0) {
         return (
             <S.Container>
                 <S.Wrapper>

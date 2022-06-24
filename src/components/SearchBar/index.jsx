@@ -28,7 +28,7 @@ export default function SearchBar() {
             setUsers([]);
         }
     }
-console.log(users)
+
     return (
         <S.SearchAll>
             <S.SearchEmpty>
@@ -52,7 +52,8 @@ console.log(users)
                     users.map((option) => {
                         return (
                             <OptionsSearchBar key={option.picture + option.username}
-                                username={option.username} picture={option.picture} id={option.id}/>
+                                username={option.username} picture={option.picture} id={option.id} 
+                                followerId={option.followerId} idCompare={data.user.id}/>
                         )
                     })
                 }
