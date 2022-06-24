@@ -5,7 +5,7 @@ import Posts from "../../components/Posts";
 import LoadingPage from '../../components/LoadingPage';
 import Trending from "../../components/Trending"
 import { useState, useEffect, useContext } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import DataContext from "../../providers/DataContext";
 import axios from "axios";
 
@@ -20,18 +20,14 @@ export default function Timeline() {
     const navigate = useNavigate()
     const API = data.API;
 
-    useEffect(() => {
+    useEffect(async () => {
         const token = localStorage.getItem('token').split('.')[1];
         if (!token) navigate('/signin');
         let user = window.atob(token);
         const { picture, id, username } = JSON.parse(user);
-
         setData({ ...data, user: { id, picture, username }, token: token });
-    }, [])
-
-    useEffect(async () => {
         setLoad(false)
-        const request = axios.get(`${API}/timeline`);
+        const request = axios.get(`${API}/timeline/${id}`);
         request.then(response => {
             const { data } = response;
             if (data === "You don't follow anyone yet. Search for new friends!") {
@@ -109,47 +105,47 @@ export default function Timeline() {
     //             }} />
     //         </S.Container>
     //     );
-   // } 
-    else if(posts.length !== 0){
-    return (
-        <S.Container>
-            <S.Wrapper>
-                <S.PostsColumn>
-                    <Header picture={data.user.picture} />
-                    <S.H2>timeline</S.H2>
-                    <NewPost
-                        publish={publish}
-                        setPublish={setPublish}
-                    />
-                    {posts.map((post, index) => {
-                        return (
-                            <Posts
-                                postId={post.id}
-                                key={post.username + post.description + index}
-                                name={post.username}
-                                picture={post.picture}
-                                link={post.link}
-                                description={post.description}
-                                originalPost={post.originalPost}
-                                reposterName={post.reposterName}
-                                linkDescription={post.linkDescription}
-                                linkTitle={post.linkTitle}
-                                linkPicture={post.linkPicture}
-                                redirect={(val) => {
-                                    val = val.replace("#", "")
-                                    navigate(`/hashtag/${val}`)
-                                }}
-                                reloadPosts={reloadPosts}
-                            />
-                        )
-                    })}
-                </S.PostsColumn >
-                <Trending redirect={(val) => {
-                    val = val.replace("#", "")
-                    navigate(`/hashtag/${val}`)
-                }} />
-            </S.Wrapper>
-        </S.Container>
-    )
-}
+    // } 
+    else if (posts.length !== 0) {
+        return (
+            <S.Container>
+                <S.Wrapper>
+                    <S.PostsColumn>
+                        <Header picture={data.user.picture} />
+                        <S.H2>timeline</S.H2>
+                        <NewPost
+                            publish={publish}
+                            setPublish={setPublish}
+                        />
+                        {posts.map((post, index) => {
+                            return (
+                                <Posts
+                                    postId={post.id}
+                                    key={post.username + post.description + index}
+                                    name={post.username}
+                                    picture={post.picture}
+                                    link={post.link}
+                                    description={post.description}
+                                    originalPost={post.originalPost}
+                                    reposterName={post.reposterName}
+                                    linkDescription={post.linkDescription}
+                                    linkTitle={post.linkTitle}
+                                    linkPicture={post.linkPicture}
+                                    redirect={(val) => {
+                                        val = val.replace("#", "")
+                                        navigate(`/hashtag/${val}`)
+                                    }}
+                                    reloadPosts={reloadPosts}
+                                />
+                            )
+                        })}
+                    </S.PostsColumn >
+                    <Trending redirect={(val) => {
+                        val = val.replace("#", "")
+                        navigate(`/hashtag/${val}`)
+                    }} />
+                </S.Wrapper>
+            </S.Container>
+        )
+    }
 }
