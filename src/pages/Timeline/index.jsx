@@ -15,24 +15,33 @@ export default function Timeline() {
     const [publish, setPublish] = useState(false);
     const [load, setLoad] = useState(false)
     const [count, setCount] = useState(0)
+    const [message, setMessage] = useState("")
     const { data, setData } = useContext(DataContext);
     const navigate = useNavigate()
     const API = data.API;
 
     useEffect(() => {
-      const token = localStorage.getItem('token').split('.')[1];
-      if(!token) navigate('/signin');
-      let user = window.atob(token);
-      const { picture, id, username } = JSON.parse(user);
+        const token = localStorage.getItem('token').split('.')[1];
+        if (!token) navigate('/signin');
+        let user = window.atob(token);
+        const { picture, id, username } = JSON.parse(user);
 
-      setData({...data, user:{ id, picture, username }, token: token});
+        setData({ ...data, user: { id, picture, username }, token: token });
     }, [])
 
-    useEffect( async () => {
+    useEffect(async () => {
         setLoad(false)
         const request = axios.get(`${API}/timeline`);
         request.then(response => {
             const { data } = response;
+            if (data === "You don't follow anyone yet. Search for new friends!") {
+                setMessage("You don't follow anyone yet. Search for new friends!");
+                setPosts([]);
+            }
+            if (data === "No posts found from your friends") {
+                setMessage("No posts found from your friends");
+                setPosts([]);
+            }
             setPosts(data);
             setCount(count + 1)
             setLoad(true)
@@ -46,7 +55,7 @@ export default function Timeline() {
 
     async function reloadPosts() {
         setLoad(false)
-        const request = axios.get(`${API}/timeline`);
+        const request = axios.get(`${API}/timeline/`);
         request.then(response => {
             const { data } = response;
             setPosts(data);
@@ -63,30 +72,48 @@ export default function Timeline() {
                     <S.Loader>
                         <LoadingPage />
                     </S.Loader>
-                </S.PostsColumn>    
+                </S.PostsColumn>
             </S.Container>
         )
-    } else if (posts.length === 0) {
-        return (
-          <S.Container>
-            <S.PostsColumn>
-              <Header picture={data.user.picture} />
-              <S.H2>
-                <h2>timeline</h2>
-              </S.H2>
-              <NewPost publish={publish} setPublish={setPublish} />
-              <h5>There are no posts yet</h5>
-            </S.PostsColumn>
-            <Trending redirect={(val) => {
-                    val = val.replace("#", "")
-                    navigate(`/hashtag/${val}`)
-            }} />
-          </S.Container>
-        );
-    } else {
+    } else if (message !== "") {
         return (
             <S.Container>
-                <S.Wrapper>
+                <S.PostsColumn>
+                    <Header picture={data.user.picture} />
+                    <S.H2>
+                        <h2>timeline</h2>
+                    </S.H2>
+                    <NewPost publish={publish} setPublish={setPublish} />
+                    <h5>{message}</h5>
+                </S.PostsColumn>
+                <Trending redirect={(val) => {
+                    val = val.replace("#", "")
+                    navigate(`/hashtag/${val}`)
+                }} />
+            </S.Container>
+        );
+    } //else if (posts.length === 0) {
+    //     return (
+    //         <S.Container>
+    //             <S.PostsColumn>
+    //                 <Header picture={data.user.picture} />
+    //                 <S.H2>
+    //                     <h2>timeline</h2>
+    //                 </S.H2>
+    //                 <NewPost publish={publish} setPublish={setPublish} />
+    //                 <h5>There are no posts yet</h5>
+    //             </S.PostsColumn>
+    //             <Trending redirect={(val) => {
+    //                 val = val.replace("#", "")
+    //                 navigate(`/hashtag/${val}`)
+    //             }} />
+    //         </S.Container>
+    //     );
+   // } 
+    else if(posts.length !== 0){
+    return (
+        <S.Container>
+            <S.Wrapper>
                 <S.PostsColumn>
                     <Header picture={data.user.picture} />
                     <S.H2>timeline</S.H2>
@@ -113,7 +140,7 @@ export default function Timeline() {
                                     navigate(`/hashtag/${val}`)
                                 }}
                                 reloadPosts={reloadPosts}
-                                />
+                            />
                         )
                     })}
                 </S.PostsColumn >
@@ -121,8 +148,8 @@ export default function Timeline() {
                     val = val.replace("#", "")
                     navigate(`/hashtag/${val}`)
                 }} />
-                </S.Wrapper>
-            </S.Container>
-        )
-    }
+            </S.Wrapper>
+        </S.Container>
+    )
+}
 }

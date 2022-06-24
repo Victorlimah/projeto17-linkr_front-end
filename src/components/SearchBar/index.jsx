@@ -18,16 +18,17 @@ export default function SearchBar() {
     function catchUsers() {
         if (value !== "") {
             axios
-                .post(`${API}/timeline-users`, { value })
+                .post(`${API}/timeline-users`, { value, id: data.user.id })
                 .then((response) => {
                     const { data } = response;
                     setUsers(data);
+                    console.log(data)
                 })
         } else {
             setUsers([]);
         }
     }
-
+console.log(users)
     return (
         <S.SearchAll>
             <S.SearchEmpty>
