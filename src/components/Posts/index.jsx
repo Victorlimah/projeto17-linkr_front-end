@@ -33,6 +33,7 @@ export default function Posts(props) {
 
     const [postCount, setPostCount] = useState({likes: 0, reposts: 0, comments: 0});
     const [comments, setComments] = useState([]);
+    const [ following, setFollowing ] = useState([]);
     const [showComments, setShowComments] = useState(false);
 
   useEffect(() => {
@@ -46,6 +47,8 @@ export default function Posts(props) {
       setLiked(data.liked);
       setPostCount({ ...postCount, likes: data.likes, comments: data.comments, reposts: data.reposts });
       setComments(data.listComments);
+      console.log(data.following)
+      setFollowing(data.following);
 
       if (data.liked && data.likes === 1) setNames([{ userName: "Você" }]);
       else setNames(data.names);  
@@ -278,15 +281,25 @@ export default function Posts(props) {
     }
   }
 
+  function openComments(){
+    if(originalPost) return null;
+    setShowComments(!showComments);
+  }
+
   function RenderComments(){
     if (originalPost) return null;
-    // if(comments.length === 0) Swal.fire("Oh no!", "This post don't have comments!", "error");
-
+    
     return (
       <>
         {comments.map(({ userName, picture, comment }, index) => {
-          //TODO: Se eu seguir ele, aparecer o nome following no details
-          const details = name === userName ? "• post’s author" : "";
+         
+          let details = "";
+          if(name === userName) details = "• post’s author";
+          else{
+            for(let follow of following){
+              if(follow.username === userName) details = "• following";
+            }
+          }
 
           return (
             <S.ContainerComments3 key={index}>
@@ -332,18 +345,6 @@ export default function Posts(props) {
      );
    }
 
-  function teste(){
-return (
-  <input
-    type="text"
-    placeholder="Write a comment..."
-    //TODO: Essa desgraça ta tirando o foco do input
-    value={editing.comment}
-    onChange={(e) => setEditing({ ...editing, comment: e.target.value })}
-  />
-);
-  }
-
   async function postComment() {
     const config = {
       headers: {
@@ -370,7 +371,7 @@ return (
             <p>{postCount.likes} likes</p>
           </S.LikesContainer>
         </Tooltip>
-        <S.CommentsContainer onClick={() => setShowComments(!showComments)}>
+        <S.CommentsContainer onClick={() => openComments()}>
           <AiOutlineComment style={{ color: 'white' }}/>
           <p>{postCount.comments} comments</p>
         </S.CommentsContainer>
@@ -436,5 +437,4 @@ return (
       </Modal>
     </S.Container>
   );
-
 }
