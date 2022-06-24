@@ -13,6 +13,7 @@ import { AiOutlineComment } from "react-icons/ai";
 import { FiSend } from "react-icons/fi";
 import { BiRepost } from "react-icons/bi";
 import Modal from 'react-modal';
+import { useNavigate } from "react-router-dom";
 
 export default function Posts(props) {
     const { postId, name, picture, link, description, linkDescription, linkTitle, linkPicture, redirect, reloadPosts, originalPost, reposterName } = props;
@@ -30,11 +31,15 @@ export default function Posts(props) {
     const API = data.API;
     const username = data.user.username;
     const inputRef = useRef();
+    const navigate = useNavigate();
 
     const [postCount, setPostCount] = useState({likes: 0, reposts: 0, comments: 0});
     const [comments, setComments] = useState([]);
     const [ following, setFollowing ] = useState([]);
     const [showComments, setShowComments] = useState(false);
+
+    // TODO: a prop abaixo deve vim da requisição de /timeline
+    const idPoster = 7
 
   useEffect(() => {
     async function checkLiked() {
@@ -361,36 +366,43 @@ export default function Posts(props) {
   }
 
   return (
-    <S.Container comment={showComments} comments={postCount.comments} >
+    <S.Container comment={showComments} comments={postCount.comments}>
       <RenderWhenReposted />
       <div>
-        <S.UserPicture src={picture} />
-        <Tooltip title={renderNames()} arrow >
+        <S.UserPicture
+          onClick={() => navigate(`/user/${idPoster}`)}
+          src={picture}
+        />
+        <Tooltip title={renderNames()} arrow>
           <S.LikesContainer onClick={() => (liked ? unlike() : like())}>
             {liked ? <AiFillHeart color="#ff0000" /> : <AiOutlineHeart />}
             <p>{postCount.likes} likes</p>
           </S.LikesContainer>
         </Tooltip>
         <S.CommentsContainer onClick={() => openComments()}>
-          <AiOutlineComment style={{ color: 'white' }}/>
+          <AiOutlineComment style={{ color: "white" }} />
           <p>{postCount.comments} comments</p>
         </S.CommentsContainer>
-        <S.RepostsContainer onClick={() => {openCloseRepostModal()}}>
-          <BiRepost style={{ color: 'white' }} />
+        <S.RepostsContainer
+          onClick={() => {
+            openCloseRepostModal();
+          }}
+        >
+          <BiRepost style={{ color: "white" }} />
           <p>{postCount.reposts} reposts</p>
         </S.RepostsContainer>
       </div>
       {showComments ? <RenderComments /> : <></>}
       <RenderIcons />
       <S.PostBody>
-        <h2>{name}</h2>
-        {!edit ?
+        <h2 onClick={() => navigate(`/user/${idPoster}`)}>{name}</h2>
+        {!edit ? (
           <p>
             <ReactHashtag onHashtagClick={(val) => redirect(val)}>
               {description}
             </ReactHashtag>
           </p>
-          :
+        ) : (
           <S.InputEditing
             required
             type="text"
@@ -398,8 +410,11 @@ export default function Posts(props) {
             value={description}
             disabled={puting}
             onKeyPress={(e) => sendText(e)}
-            onChange={(e) => setEditing({ ...editing, description: e.target.value })}>
-          </S.InputEditing>}
+            onChange={(e) =>
+              setEditing({ ...editing, description: e.target.value })
+            }
+          ></S.InputEditing>
+        )}
         <a href={link} target={link}>
           <S.linkCard>
             <h3>{linkTitle ? linkTitle : "Unknow title"}</h3>
@@ -415,7 +430,7 @@ export default function Posts(props) {
         onRequestClose={openCloseDeleteModal}
         style={customStyles}
         contentLabel="Delete Modal"
-        appElement={document.getElementsByClassName('root')}
+        appElement={document.getElementsByClassName("root")}
       >
         <S.ModalContainer>
           <h2>Are you sure you want to delete this post?</h2>
@@ -428,7 +443,7 @@ export default function Posts(props) {
         onRequestClose={openCloseRepostModal}
         style={customStyles}
         contentLabel="Repost Modal"
-        appElement={document.getElementsByClassName('root')}
+        appElement={document.getElementsByClassName("root")}
       >
         <S.ModalContainer>
           <h2>Are you sure you want to repost this?</h2>
