@@ -4,9 +4,12 @@ import NewPost from "../../components/NewPost";
 import Posts from "../../components/Posts";
 import LoadingPage from '../../components/LoadingPage';
 import Trending from "../../components/Trending"
+import Footer from "../../components/Footer"
 import { useState, useEffect, useContext } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import useInterval from "use-interval";
 import DataContext from "../../providers/DataContext";
+import InfiniteScroll from 'react-infinite-scroller';
 import axios from "axios";
 
 
@@ -16,18 +19,22 @@ export default function Timeline() {
     const [load, setLoad] = useState(false)
     const [count, setCount] = useState(0)
     const [message, setMessage] = useState("")
+    const [showFooter, setShowFooter] = useState(true)
+    const [currentPage, setCurrentPage] = useState(0)
+    const [morePosts, setMorePosts] = useState(true)
+    const [observeAPI, setObserveAPI] = useState(null)
     const { data, setData } = useContext(DataContext);
     const navigate = useNavigate()
     const API = data.API;
+    const token = localStorage.getItem('token').split('.')[1];
 
     useEffect(async () => {
-        const token = localStorage.getItem('token').split('.')[1];
         if (!token) navigate('/signin');
         let user = window.atob(token);
         const { picture, id, username } = JSON.parse(user);
         setData({ ...data, user: { id, picture, username }, token: token });
         setLoad(false)
-        const request = axios.get(`${API}/timeline/${id}`);
+        const request = axios.get(`${API}/timeline/${id}?page=${currentPage}`);
         request.then(response => {
             const { data } = response;
             if (data === "You don't follow anyone yet. Search for new friends!") {
@@ -51,7 +58,9 @@ export default function Timeline() {
 
     async function reloadPosts() {
         setLoad(false)
-        const request = axios.get(`${API}/timeline/`);
+        let user = window.atob(token);
+        const {id} = JSON.parse(user);
+        const request = axios.get(`${API}/timeline/${id}`);
         request.then(response => {
             const { data } = response;
             setPosts(data);
@@ -60,6 +69,39 @@ export default function Timeline() {
         })
         request.catch(warning)
     }
+
+    async function loadMorePosts() {
+        setShowFooter(false)
+        const request = axios.get(`${API}/timeline/${data.user.id}?page=${currentPage}`);
+        request.then(response => {
+            const { data } = response;
+            if(data.length === 0){
+                setMorePosts(false)
+            }
+            setShowFooter(true)
+            setCurrentPage(currentPage + 1)
+            setPosts([...posts, ...data]);
+        })
+        request.catch(warning)
+    }
+
+    useInterval(() => {
+        const request = axios.get(`${API}/new/${data.user.id}`);
+        request.then(response => {
+            const { data } = response;
+            if(observeAPI === null){
+                setObserveAPI(data.length)
+            }
+            else if(data.length > observeAPI){
+                alert(`There are ${data.length - observeAPI} new posts`)
+                setObserveAPI(data.length)
+                setPublish(true)
+            } 
+        })
+        request.catch(warning)
+    }, 20000)
+
+
 
     if (!load) {
         return (
@@ -88,24 +130,7 @@ export default function Timeline() {
                 }} />
             </S.Container>
         );
-    } //else if (posts.length === 0) {
-    //     return (
-    //         <S.Container>
-    //             <S.PostsColumn>
-    //                 <Header picture={data.user.picture} />
-    //                 <S.H2>
-    //                     <h2>timeline</h2>
-    //                 </S.H2>
-    //                 <NewPost publish={publish} setPublish={setPublish} />
-    //                 <h5>There are no posts yet</h5>
-    //             </S.PostsColumn>
-    //             <Trending redirect={(val) => {
-    //                 val = val.replace("#", "")
-    //                 navigate(`/hashtag/${val}`)
-    //             }} />
-    //         </S.Container>
-    //     );
-    // } 
+    }
     else if (posts.length !== 0) {
         return (
             <S.Container>
@@ -117,34 +142,42 @@ export default function Timeline() {
                             publish={publish}
                             setPublish={setPublish}
                         />
-                        {posts.map((post, index) => {
-                            return (
-                                <Posts
-                                    postId={post.id}
-                                    key={post.username + post.description + index}
-                                    name={post.username}
-                                    picture={post.picture}
-                                    link={post.link}
-                                    description={post.description}
-                                    originalPost={post.originalPost}
-                                    reposterName={post.reposterName}
-                                    linkDescription={post.linkDescription}
-                                    linkTitle={post.linkTitle}
-                                    linkPicture={post.linkPicture}
-                                    redirect={(val) => {
-                                        val = val.replace("#", "")
-                                        navigate(`/hashtag/${val}`)
-                                    }}
-                                    reloadPosts={reloadPosts}
-                                />
-                            )
-                        })}
+                        <InfiniteScroll
+                            pageStart={0}
+                            loadMore={loadMorePosts}
+                            hasMore={morePosts}
+                            useWindow={true}
+                        >
+                            {posts.map((post, index) => {
+                                return (
+                                    <Posts
+                                        postId={post.id}
+                                        key={post.username + post.description + index}
+                                        name={post.username}
+                                        picture={post.picture}
+                                        link={post.link}
+                                        description={post.description}
+                                        originalPost={post.originalPost}
+                                        reposterName={post.reposterName}
+                                        linkDescription={post.linkDescription}
+                                        linkTitle={post.linkTitle}
+                                        linkPicture={post.linkPicture}
+                                        redirect={(val) => {
+                                            val = val.replace("#", "")
+                                            navigate(`/hashtag/${val}`)
+                                        }}
+                                        reloadPosts={reloadPosts}
+                                    />
+                                )
+                            })}
+                        </InfiniteScroll>
                     </S.PostsColumn >
                     <Trending redirect={(val) => {
                         val = val.replace("#", "")
                         navigate(`/hashtag/${val}`)
                     }} />
                 </S.Wrapper>
+                <Footer setShowFooter={setShowFooter} showFooter={showFooter} />
             </S.Container>
         )
     }
