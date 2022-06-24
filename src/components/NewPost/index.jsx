@@ -39,7 +39,7 @@ export default function NewPost(props) {
                 onChange={(e) => setForm({ ...form, description: e.target.value })}
                 value={form.description}
             />
-            <S.Button type="submit">{!publish ? "Pubish": "Publishing..."}</S.Button>
+            <S.Button type="submit">{!publish ? "Publish": "Publishing..."}</S.Button>
         </S.Form>
     ) 
 }
