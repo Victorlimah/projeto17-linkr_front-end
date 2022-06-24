@@ -23,4 +23,14 @@ export const User = styled.div`
   margin-left: 17px;
   border-radius: 304px;
   }
+
+  h6{
+  padding-left: 10px;
+  font-family: 'Lato';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 19px;
+  line-height: 23px;
+  color: #C5C5C5;
+  }
 `
