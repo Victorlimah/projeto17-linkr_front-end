@@ -2,10 +2,12 @@ import * as S from "./styles";
 import Header from "../../components/Header";
 import Posts from "../../components/Posts";
 import Trending from "../../components/Trending"
+import Footer from "../../components/Footer"
 import { useState, useEffect, useContext } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import DataContext from "../../providers/DataContext";
 import LoadingPage from '../../components/LoadingPage';
+import InfiniteScroll from 'react-infinite-scroller';
 import axios from "axios";
 
 
@@ -14,8 +16,11 @@ export default function TimelineUser() {
     const [user, setUser] = useState([]);
     const [load, setLoad] = useState(false)
     const [publish, setPublish] = useState(false);
+    const [showFooter, setShowFooter] = useState(true)
     const [disabled, setDisabled] = useState(false);
     const [following, setFollowing] = useState(false);
+    const [morePosts, setMorePosts] = useState(true)
+    const [currentPage, setCurrentPage] = useState(0)
     const { data, setData } = useContext(DataContext);
     const navigate = useNavigate()
     const API = data.API;
@@ -47,7 +52,7 @@ export default function TimelineUser() {
         let request = null;
         setLoad(false);
         setPosts([]);
-        request = axios.get(`${API}/user/${id}`);
+        request = axios.get(`${API}/user/${id}?page=${currentPage}`);
 
         request.then((response) => {
             const { data } = response;
@@ -84,6 +89,20 @@ export default function TimelineUser() {
             setDisabled(false);
         });
         request.catch(warningFollow);
+    }
+
+    async function loadMorePosts() {
+        setShowFooter(false)
+        setMorePosts(false)
+        const request = axios.get(`${API}/timeline/${data.user.id}?page=${currentPage}`);
+        request.then(response => {
+            const { data } = response;
+            setCurrentPage(currentPage + 1)
+            setPosts([...posts, ...data]);
+            setShowFooter(true)
+            setMorePosts(false)
+        })
+        request.catch(warning)
     }
 
     const tag = posts.length === 0 ? "There are no posts yet" : "";
@@ -127,30 +146,37 @@ export default function TimelineUser() {
                     <S.Division>
                         <S.PostsColumnUser>
                             <h5>{tag}</h5>
-                            {posts.length !== 0 &&
-                                posts.map((post, index) => {
-                                    return (
-                                        <Posts
-                                            postId={post.id}
-                                            idPoster={post.publisher}
-                                            key={post.username + post.description + index}
-                                            name={post.username}
-                                            picture={post.picture}
-                                            link={post.link}
-                                            description={post.description}
-                                            linkDescription={post.linkDescription}
-                                            linkTitle={post.linkTitle}
-                                            linkPicture={post.linkPicture}
-                                            originalPost={post.originalPost}
-                                            reposterName={post.reposterName}
-                                            redirect={(val) => {
-                                                val = val.replace("#", "");
-                                                navigate(`/hashtag/${val}`);
-                                            }}
-                                            reloadPosts={reloadData}
-                                        />
-                                    );
-                                })}
+                            <InfiniteScroll
+                                pageStart={0}
+                                loadMore={loadMorePosts}
+                                hasMore={morePosts}
+                                useWindow={true}
+                            >
+                                {posts.length !== 0 &&
+                                    posts.map((post, index) => {
+                                        return (
+                                            <Posts
+                                                postId={post.id}
+                                                idPoster={post.publisher}
+                                                key={post.username + post.description + index}
+                                                name={post.username}
+                                                picture={post.picture}
+                                                link={post.link}
+                                                description={post.description}
+                                                linkDescription={post.linkDescription}
+                                                linkTitle={post.linkTitle}
+                                                linkPicture={post.linkPicture}
+                                                originalPost={post.originalPost}
+                                                reposterName={post.reposterName}
+                                                redirect={(val) => {
+                                                    val = val.replace("#", "");
+                                                    navigate(`/hashtag/${val}`);
+                                                }}
+                                                reloadPosts={reloadData}
+                                            />
+                                        );
+                                    })}
+                            </InfiniteScroll>
                         </S.PostsColumnUser>
                         <Trending
                             redirect={(val) => {
@@ -159,6 +185,7 @@ export default function TimelineUser() {
                             }}
                         />
                     </S.Division>
+                    <Footer setShowFooter={setShowFooter} showFooter={showFooter} />
                 </S.ContainerUser>
             </>
         );

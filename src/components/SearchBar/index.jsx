@@ -22,7 +22,6 @@ export default function SearchBar() {
                 .then((response) => {
                     const { data } = response;
                     setUsers(data);
-                    console.log(data)
                 })
         } else {
             setUsers([]);
