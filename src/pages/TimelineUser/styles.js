@@ -17,13 +17,11 @@ export const ContainerUser = styled.div`
 export const Division = styled.div`
   display: flex;
   width: 80vw;
-  align-items: center;
-  justify-content: space-between;
 
   @media (max-width: 800px) {
     justify-content: center;
     text-align: center;
-    margin-top: 100px;
+    margin-top: 50px;
   }
 `;
 
@@ -54,7 +52,7 @@ export const H2User = styled.div`
     color: #ffffff;
   }
   @media (max-width: 800px) {
-    margin-top: 150px;
+    margin-top: 90px;
     
     div h2{
       font-size: 25px;
@@ -71,6 +69,7 @@ export const UserInfo = styled.div`
   
   div{
     display: flex;
+    padding: 50px 0px;
   }
 
   img {
@@ -90,6 +89,12 @@ export const UserInfo = styled.div`
     color: #ffffff;
   }
 
+  @media (max-width: 800px) {
+    div{
+    margin-top: 0px;
+    padding: 0px 0;
+  }
+  }
 `;
 
 export const LoaderUser = styled.div`

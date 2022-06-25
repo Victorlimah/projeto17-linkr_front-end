@@ -49,7 +49,6 @@ export default function Posts(props) {
       setLiked(data.liked);
       setPostCount({ ...postCount, likes: data.likes, comments: data.comments, reposts: data.reposts });
       setComments(data.listComments);
-      console.log(data.following)
       setFollowing(data.following);
 
       if (data.liked && data.likes === 1) setNames([{ userName: "Você" }]);
