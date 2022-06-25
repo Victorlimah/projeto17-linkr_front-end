@@ -72,17 +72,17 @@ export default function Timeline() {
 
     async function loadMorePosts() {
         setShowFooter(false)
+        setMorePosts(false)
         const request = axios.get(`${API}/timeline/${data.user.id}?page=${currentPage}`);
         request.then(response => {
             const { data } = response;
-            if(data.length === 0){
-                setMorePosts(false)
-            }
-            setShowFooter(true)
             setCurrentPage(currentPage + 1)
             setPosts([...posts, ...data]);
+            setShowFooter(true)
+            setMorePosts(false)
         })
         request.catch(warning)
+        
     }
 
     useInterval(() => {

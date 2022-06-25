@@ -7,8 +7,6 @@ import * as S from "./styles";
 export default function OptionsSearchBar({ username, picture, id, followerId, idCompare }) {
 
     const { setIdUser } = useContext(DataContext);
-    console.log(followerId)
-    console.log(idCompare)
 
     return (
         <Link to={`/user/${id}`}>
