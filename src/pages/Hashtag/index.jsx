@@ -51,6 +51,7 @@ export default function Hashtag() {
               return (
                 <Posts
                   postId={item.id}
+                  idPoster={item.publisher}
                   key={item.username + item.description + index}
                   name={item.username}
                   picture={item.picture}
