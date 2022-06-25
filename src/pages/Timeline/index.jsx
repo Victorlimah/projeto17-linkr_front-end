@@ -6,12 +6,11 @@ import LoadingPage from '../../components/LoadingPage';
 import Trending from "../../components/Trending"
 import Footer from "../../components/Footer"
 import { useState, useEffect, useContext } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import useInterval from "use-interval";
 import DataContext from "../../providers/DataContext";
 import InfiniteScroll from 'react-infinite-scroller';
 import axios from "axios";
-
 
 export default function Timeline() {
     const [posts, setPosts] = useState([]);
@@ -101,8 +100,6 @@ export default function Timeline() {
         request.catch(warning)
     }, 20000)
 
-
-
     if (!load) {
         return (
             <S.Container>
@@ -152,6 +149,7 @@ export default function Timeline() {
                                 return (
                                     <Posts
                                         postId={post.id}
+                                        idPoster={post.publisher}
                                         key={post.username + post.description + index}
                                         name={post.username}
                                         picture={post.picture}

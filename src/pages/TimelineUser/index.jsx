@@ -118,7 +118,7 @@ export default function TimelineUser() {
                                 onClick={() => {
                                     followingUser();
                                 }}>Unfollow</S.Follow> : <S.Follow following={following} className="follow-selected"
-                                    isUser={Number(id) === data.user.id} disabled={disabled}
+                                    isUser={Number(id) === data.user.id ||  user.length === 0} disabled={disabled}
                                     onClick={() => {
                                         followingUser();
                                     }}>Follow</S.Follow>}
@@ -132,6 +132,7 @@ export default function TimelineUser() {
                                     return (
                                         <Posts
                                             postId={post.id}
+                                            idPoster={post.publisher}
                                             key={post.username + post.description + index}
                                             name={post.username}
                                             picture={post.picture}
